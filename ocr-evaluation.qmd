@@ -1,0 +1,97 @@
+# VLM-Based OCR: Evaluating New Approaches
+
+## Overview
+
+Vision Language Models (VLMs) offer a fundamentally different approach to OCR compared to traditional methods. This chapter evaluates when and how VLMs might complement or replace existing OCR workflows in GLAM institutions.
+
+## Key Questions This Chapter Addresses
+
+- When is it worth re-OCRing existing collections with VLMs?
+- How do VLMs compare to traditional OCR in accuracy, cost, and outputs?
+- What new capabilities do VLMs enable beyond text extraction?
+- How can VLM-extracted text better support downstream AI tasks?
+
+## Evaluation Framework
+
+### Performance Metrics
+- **Accuracy**: Character and word error rates across different document types
+- **Cost**: Per-page processing costs vs traditional OCR
+- **Speed**: Processing time for different collection sizes
+- **Output Quality**: Readability and structure preservation
+
+### Output Format Comparison
+
+::: {.panel-tabset}
+
+### Traditional OCR (ALTO XML)
+- Preserves exact page coordinates
+- Industry standard for digital libraries
+- Complex structure, harder to process
+- Limited semantic understanding
+
+### VLM Output (Markdown)
+- Human-readable format
+- Preserves document structure semantically
+- Easier integration with LLMs
+- Better for full-text search and RAG
+
+### Hybrid Approaches
+- Use VLMs for complex layouts
+- Traditional OCR for simple text
+- Combine coordinate and semantic data
+
+:::
+
+## When to Consider Re-OCRing
+
+::: {.callout-tip}
+## Decision Framework
+Consider VLM-based re-OCRing when:
+- Existing OCR is >10 years old
+- You need better handling of complex layouts
+- Downstream AI applications require clean text
+- Cost per page is acceptable for your budget
+:::
+
+## Enabling Downstream AI Tasks
+
+### RAG (Retrieval-Augmented Generation)
+- Cleaner text improves retrieval accuracy
+- Markdown format works better with embeddings
+- Structural understanding enhances context
+
+### Fine-tuning and Training
+- Higher quality training data from historical texts
+- Better preservation of document semantics
+- Reduced preprocessing requirements
+
+### Semantic Search
+- Improved indexing with better text quality
+- Enhanced metadata extraction
+- Cross-collection discovery
+
+## Case Studies
+
+### National Library Examples
+- Newspaper collections with complex layouts
+- Handwritten materials mixed with print
+- Multi-language collections
+- Scientific texts with formulas and diagrams
+
+## Cost-Benefit Analysis
+
+[To be developed with specific pricing models and benchmarks]
+
+## Tools and Resources
+
+- Evaluation scripts for comparing OCR outputs
+- Sample datasets for benchmarking
+- Cost calculators for different scales
+- Integration guides for existing workflows
+
+## Next Steps
+
+1. Pilot evaluation on representative samples
+2. Benchmark against existing OCR
+3. Calculate ROI for full collection processing
+4. Develop integration strategy

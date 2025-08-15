@@ -9,6 +9,7 @@ book:
     - index.qmd
     - intro.qmd
     - patterns/example-pattern.qmd
+    - ocr-evaluation.qmd
     - references.qmd
 
 bibliography: references.bib
