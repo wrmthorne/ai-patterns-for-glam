@@ -93,18 +93,18 @@ def create_dataset(data_dir: Path, max_samples: int = None):
     """Create dataset from Sloane index card images."""
 
     data = []
-    
+
     # Find all JPG files recursively
     img_files = sorted(data_dir.rglob("*.jpg"))
-    
+
     # Apply max_samples limit if specified
     if max_samples:
         img_files = img_files[:max_samples]
-    
-    for img_path in tqdm(img_files, desc="Processing images"):
+
+    for page_idx, img_path in tqdm(enumerate(img_files), desc="Processing images"):
         # Get collection name from parent directory
         collection_name = img_path.parent.name
-        
+
         # Extract page number from filename
         # Format: sloane_ms_3972_c!2_224.jpg -> page 224
         page_num = None
@@ -119,16 +119,17 @@ def create_dataset(data_dir: Path, max_samples: int = None):
                 "filename": img_path.name,
                 "collection": collection_name,
                 "page_number": page_num,
+                "page_index_in_directory": page_idx,
                 "source": "British Library Sloane Manuscripts",
             }
         )
 
     # Create dataset without explicit features first
     dataset = Dataset.from_list(data)
-    
+
     # Cast the image column from paths to Image type
     dataset = dataset.cast_column("image", HFImage())
-    
+
     return dataset
 
 
