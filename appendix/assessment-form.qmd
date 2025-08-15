@@ -1,0 +1,246 @@
+# Appendix A: AI Opportunity Assessment Form
+
+::: {.callout-note}
+This is the complete assessment form used at the National Library of Scotland to gather detailed requirements for AI opportunities. It can be adapted for use at other institutions.
+:::
+
+## AI Opportunity Assessment
+
+Daniel van Strien is working with the National Library of Scotland to explore how AI can support the libraries work.
+
+We're gathering input from staff across all departments to identify opportunities where AI could make a meaningful difference to your daily work.
+
+There has been a growing interest in using AI in libraries, but many existing projects have stayed as "proof of concept" experiments, rather than being integrated into regular workflows. The goal of Daniel's work is to try to help the library go beyond experiments and find practical, sustainable AI solutions that can be reused across different collections and workflows.
+
+This assessment focuses on finding everyday, repetitive tasks that AI could help with - the routine work that takes time away from more valuable activities. We're looking for tasks that affect multiple staff members or collections, rather than one-off projects. We're particularly interested in tasks that involve:
+
+- **Transforming** content (e.g., OCR, transcription)
+- **Extracting & Describing** information (e.g., metadata, summaries)
+- **Organizing** materials (e.g., classification, tagging)
+- **Finding** resources (e.g., improved search, discovery)
+
+But don't worry if your task doesn't fit neatly into these categories - we're open to all ideas where you think AI could help.
+
+Your responses will directly inform the selection of 2-3 pilot projects for 2025, focusing on sustainable, task-specific AI solutions that can be reused across different collections and workflows.
+
+## Your Details
+
+**Name (optional):** ________________________________________
+
+**Department/Team:** ________________________________________
+
+**Email (for follow-up if your use case is selected):** ________________________________________
+
+## Part 1: Your Repetitive Task
+
+**Think about your typical work week. What routine task or decision takes up the most time?**
+
+_We're looking for tasks that are:_
+
+- Part of regular workflows (not one-off projects)
+- Done by multiple people or across multiple collections
+- Currently manual but follow consistent patterns
+
+_Examples:_
+
+- "Is this document a letter, report, or administrative record?"
+- "What subject headings should this item have?"
+- "Can this be made publicly accessible or should it be restricted?"
+- "What information needs to be extracted from index cards or forms?"
+- "Is this scan quality good enough or does it need redoing?"
+- "What's the condition of this item (good/fair/poor)?"
+- "Converting handwritten catalogues or indexes to searchable data"
+
+**My most time-consuming repetitive task is:**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**How often do you do this?**  
+☐ Multiple times per day ☐ Daily ☐ Several times per week ☐ Weekly ☐ Other: _____________
+
+**Approximately how long per item:** _______________ **Items per week:** _______________
+
+**How many other people do similar work?** _______________
+
+## Part 2: Task Characteristics
+
+**What type of task is this? (Check all that apply)**
+
+☐ **Transform** - Converting content from one format to another (OCR, transcription, etc.)  
+☐ **Extract** - Pulling out specific information (dates, names, topics, etc.)  
+☐ **Describe** - Creating summaries, captions, or descriptions  
+☐ **Organize** - Classifying, categorizing, or tagging items  
+☐ **Find** - Searching for or identifying similar items  
+☐ **Quality Check** - Assessing if something meets standards  
+☐ **Other:** ________________________________________
+
+**How clear-cut are the decisions involved?**
+
+☐ Very clear - there's usually one right answer  
+☐ Mostly clear - about 80% straightforward  
+☐ Mixed - some clear rules, some judgment calls  
+☐ Subjective - depends heavily on context and expertise
+
+**Do you have written guidelines for this task?**
+
+☐ Yes - detailed documentation exists  
+☐ Yes - basic guidelines available  
+☐ Informal/unwritten practices only  
+☐ No documentation
+
+**Could this approach be reused for other collections or departments?**
+
+☐ Yes - many areas could benefit  
+☐ Possibly - with some adaptation  
+☐ No - very specific to our work
+
+## Part 3: Data Availability (Critical for AI)
+
+**Do you already have digital data to work with for this task?**
+
+☐ Yes - we have digital data that's well-organized and accessible  
+☐ Yes - we have digital data but it needs some preparation  
+☐ Partially - some is digital, some needs digitizing (e.g., index cards, physical forms)  
+☐ No - it's all physical and would need digitizing first  
+☐ No - we'd be creating new data from scratch
+
+**Do you already have examples where this task has been completed?**
+
+☐ **Thousands** - We have extensive historical examples  
+☐ **Hundreds** - Good amount of existing work  
+☐ **Dozens** - Some examples (50-100)  
+☐ **Few** - Less than 50 examples  
+☐ **None** - Would be starting fresh
+
+**Where are these examples stored?**
+
+☐ In our catalog/database with clear metadata  
+☐ In spreadsheets or structured files  
+☐ In documents but not well organized  
+☐ Mixed across different systems  
+☐ Only in people's heads/experience  
+☐ Not digitally accessible
+
+**What format is your content in?**
+
+☐ Digital text (Word, PDF with searchable text)  
+☐ Scanned documents with OCR  
+☐ Scanned documents without OCR  
+☐ Handwritten materials  
+☐ Images/photographs  
+☐ Audio/video  
+☐ Mixed formats  
+☐ Other: ________________________________________
+
+## Part 4: Impact Assessment
+
+**If AI could handle 80% of this task accurately (with you reviewing uncertain cases), how valuable would this be?**
+
+☐ **Transformative** - Would completely change how we work  
+☐ **Very valuable** - Would save significant time weekly  
+☐ **Moderately valuable** - Helpful for initial processing  
+☐ **Limited value** - The 20% errors would create problems  
+☐ **Not useful** - We need near-perfect accuracy
+
+**Estimated time savings per week across all staff doing this task:**
+
+☐ More than 20 hours total  
+☐ 10-20 hours total  
+☐ 5-10 hours total  
+☐ 2-5 hours total  
+☐ Less than 2 hours total
+
+**Would automating this task have other benefits beyond time savings?**  
+(e.g., improved consistency, faster user service, better accessibility, enable new services)
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+## Part 5: Concerns and Requirements
+
+**What concerns you about using AI for this task?** (Check all that apply)
+
+☐ Accuracy/quality of AI outputs  
+☐ Loss of human expertise and judgment  
+☐ Job security implications  
+☐ Ethical considerations (bias, privacy, etc.)  
+☐ Environmental impact  
+☐ Technical complexity  
+☐ Cost and sustainability  
+☐ Other: ________________________________________
+
+**What would you need to feel confident using AI for this task?**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**Would you be willing to help train/test an AI system for this task?**
+
+☐ Yes - I'd be happy to be involved  
+☐ Maybe - depends on time commitment  
+☐ No - but happy for others to lead  
+☐ No - I have concerns about this
+
+## Part 6: Other Opportunities
+
+**Are there other routine tasks in your work that might benefit from AI?**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**Is there valuable work you currently can't do because it would take too much time?**  
+(e.g., "We'd love to add subject tags to our entire backlog but it would take years", "We have 250,000 index cards that need digitizing", "We need condition assessments for thousands of items")
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+## Part 7: Final Thoughts
+
+**Any other comments about AI at NLS? (Hopes, concerns, ideas, questions)**
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+_________________________________________________________________
+
+**Thank you for taking the time to complete this assessment.**
+
+Your input will help us identify practical AI applications that can genuinely improve our work while aligning with the Library's values and mission. We're particularly interested in solutions that can benefit multiple teams and be applied across different collections.
+
+**Next steps:**
+
+- We'll review all submissions to identify common themes and high-impact opportunities
+- 2-3 pilot projects will be selected based on feasibility, reusability, and potential value
+- Selected projects will be developed using sustainable, task-specific AI approaches
+- All documentation and learnings will be shared openly with the GLAM community
+
+**Questions?** Please contact [NAME] at [EMAIL]
+
+**Please return this assessment by [DATE] to [EMAIL]**

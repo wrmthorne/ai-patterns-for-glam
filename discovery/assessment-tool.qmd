@@ -1,0 +1,272 @@
+# Opportunity Assessment Tool
+
+<!-- 
+Based on: workshops/ai-opportunity-assessment.md
+Purpose: Document the assessment tool at high level
+Full form goes in appendix
+-->
+
+## From Workshop to Implementation
+
+- Workshops surface many potential opportunities
+- Need systematic way to evaluate and prioritize
+- Assessment tool bridges enthusiasm to action
+- Provides structured data for decision-making
+
+<!-- The gap it fills: -->
+<!-- - Workshop = broad exploration -->
+<!-- - Assessment = detailed requirements -->
+<!-- - Implementation = selected pilots -->
+
+## Purpose and Design
+
+### Why Written Assessment?
+- Time for thoughtful reflection
+- Capture technical details
+- Document current workflows
+- Gather quantitative metrics
+- Create paper trail for decisions
+
+### Design Principles
+- Progressive complexity (easy → detailed)
+- Concrete examples throughout
+- Multiple choice where possible
+- Space for unique situations
+- Non-technical language
+
+<!-- Learned from experience: -->
+<!-- - Too long = low completion -->
+<!-- - Too short = insufficient detail -->
+<!-- - Sweet spot = 30-45 minutes -->
+
+## Core Components
+
+### 1. Task Identification
+- Describe the repetitive task
+- Frequency and volume metrics
+- Number of staff affected
+- Current time investment
+
+<!-- Key insight: specific is better -->
+<!-- "Cataloging" too broad -->
+<!-- "Assigning subject headings to manuscripts" better -->
+
+### 2. Task Characteristics
+- Maps to framework (Transform/Extract/Organize/Find)
+- Clarity of decisions involved
+- Existing documentation
+- Reusability potential
+
+<!-- This section determines AI approach -->
+
+### 3. Data Reality Check
+- **Critical section** for feasibility
+- Digital vs physical materials
+- Existing examples (training data)
+- Where data currently lives
+- Format and structure
+
+<!-- Most projects fail here -->
+<!-- No data = no AI -->
+
+### 4. Impact Assessment
+- Would 80% accuracy help?
+- Time savings calculation
+- Benefits beyond efficiency
+- Strategic alignment
+
+<!-- ROI calculation inputs -->
+
+### 5. Concerns and Requirements
+- Technical worries
+- Ethical considerations
+- Change management needs
+- Support requirements
+
+<!-- Address fears upfront -->
+<!-- Build trust and buy-in -->
+
+## Key Questions That Matter Most
+
+### The 80% Question
+"If AI could handle 80% of this task accurately (with you reviewing uncertain cases), how valuable would this be?"
+
+<!-- Why this matters: -->
+<!-- - Sets realistic expectations -->
+<!-- - Identifies perfectionists -->
+<!-- - Reveals workflow flexibility -->
+
+### The Data Question
+"Do you already have examples where this task has been completed?"
+
+Options:
+- Thousands (excellent)
+- Hundreds (workable)
+- Dozens (challenging)
+- Few/None (not ready)
+
+<!-- This predicts success more than any other factor -->
+
+### The Reuse Question
+"Could this approach be reused for other collections or departments?"
+
+<!-- Reusable solutions = better investment -->
+<!-- Single-use = rarely worth it -->
+
+## Using the Assessment
+
+### Distribution Strategy
+- Post-workshop follow-up
+- Targeted to engaged participants
+- Department heads for cascade
+- Optional but encouraged
+
+<!-- Timing matters: -->
+<!-- - Too soon = workshop fatigue -->
+<!-- - Too late = lost momentum -->
+<!-- - Sweet spot = 1 week after -->
+
+### Response Patterns
+<!-- What we've learned -->
+
+Common discoveries:
+- Same tasks across departments
+- Hidden data resources exist
+- "Boring" tasks most popular
+- Quality control major theme
+
+Typical response rate:
+- 30-40% of workshop participants
+- Higher with follow-up
+- Better with deadline
+
+### Analysis Approach
+
+1. **Group similar tasks**
+   - Often same need, different words
+   - Look for patterns across departments
+   
+2. **Score on feasibility**
+   - Data availability (40%)
+   - Task clarity (30%)
+   - Impact potential (30%)
+   
+3. **Create shortlist**
+   - Top 5-10 opportunities
+   - Mix of quick wins and big impact
+   
+4. **Validate with stakeholders**
+   - Do scores match intuition?
+   - Any political considerations?
+   - Resource availability?
+
+## Selection Criteria
+
+### The Pilot Selection Matrix
+
+**High Impact + High Feasibility**
+- Priority pilots
+- Allocate resources
+- Fast track
+
+**High Impact + Low Feasibility**
+- Long-term goals
+- Need groundwork
+- Watch technology
+
+**Low Impact + High Feasibility**
+- Quick wins
+- Build confidence
+- Learn lessons
+
+**Low Impact + Low Feasibility**
+- Deprioritize
+- Revisit later
+
+## From Assessment to Action
+
+### Next Steps for Selected Opportunities
+
+1. **Deep dive sessions**
+   - With task owners
+   - Technical requirements
+   - Success metrics
+   
+2. **Data audit**
+   - Quality assessment
+   - Volume verification
+   - Access permissions
+   
+3. **Pilot planning**
+   - 3-month sprints
+   - Clear deliverables
+   - Evaluation criteria
+
+### Communication Back
+
+- Thank all respondents
+- Share aggregate findings
+- Explain selection logic
+- Timeline for pilots
+- How to stay involved
+
+<!-- Transparency builds trust -->
+
+## Lessons from Implementation
+
+### What Works
+- Specific examples resonate
+- Time savings motivate
+- Peer institutions inspire
+- Small starts succeed
+
+### Common Pitfalls
+- Vague task descriptions
+- Overestimating data quality
+- Underestimating change management
+- Assuming technical readiness
+
+### Success Factors
+- Champion involvement
+- Realistic expectations
+- Iterative improvement
+- Shared learning
+
+## Resources
+
+### The Full Assessment Tool
+- Complete questionnaire in Appendix A
+- Downloadable versions available
+- Adaptation guide included
+
+### Supporting Materials
+- Analysis spreadsheet template
+- Scoring rubric
+- Report templates
+- Communication examples
+
+<!-- See appendix for full tool -->
+
+## Moving Forward
+
+<!-- Link to patterns section -->
+<!-- Selected opportunities become patterns -->
+<!-- Patterns become sustainable solutions -->
+
+---
+
+<!-- 
+Key takeaways:
+- Assessment bridges workshop to implementation
+- Data availability is critical
+- 80% accuracy threshold is key
+- Reusability drives ROI
+- Transparency maintains engagement
+-->
+
+<!-- 
+Next chapter transitions:
+- How patterns emerge from assessments
+- Building sustainable implementations
+- Scaling from pilots to production
+-->

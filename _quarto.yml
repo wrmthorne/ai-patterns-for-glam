@@ -8,6 +8,12 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - part: "Beyond Chatbots: Finding AI Opportunities"
+      chapters:
+        - discovery/boring-ai.qmd
+        - discovery/framework.qmd
+        - discovery/workshop-approach.qmd
+        - discovery/assessment-tool.qmd
     - part: "Design Patterns"
       chapters:
         - patterns/example-pattern.qmd
@@ -15,6 +21,9 @@ book:
       chapters:
         - ocr-evaluation.qmd
     - references.qmd
+    - part: "Appendices"
+      chapters:
+        - appendix/assessment-form.qmd
 
 bibliography: references.bib
 

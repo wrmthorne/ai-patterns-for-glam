@@ -1,0 +1,259 @@
+# Workshop Approach
+
+<!-- 
+Based on: nls-workshop-focused.qmd presentation
+Purpose: Document how workshops surface AI opportunities
+Key insight: Interactive sessions beat surveys for finding real needs
+-->
+
+## Why Workshops Work
+
+- Face-to-face discussion surfaces hidden pain points
+- Group dynamics reveal shared challenges
+- Real-time clarification of technical feasibility
+- Builds buy-in through participation
+
+<!-- Compare to other methods: -->
+<!-- - Surveys: low response, abstract answers -->
+<!-- - Top-down: misses ground-level reality -->
+<!-- - Tech-first: solutions looking for problems -->
+
+## Workshop Structure
+
+### Timing (90-120 minutes typical)
+- 30 min: Presentation/context setting
+- 15 min: Individual reflection
+- 30 min: Small group discussion
+- 30 min: Full group sharing
+- 15 min: Next steps
+
+<!-- Variations: -->
+<!-- - Half-day deep dives -->
+<!-- - Series of shorter sessions -->
+<!-- - Department-specific vs cross-functional -->
+
+## Key Concepts to Present
+
+### The Ferrari vs Honda Civic Analogy
+<!-- From NLS workshop slides -->
+- Frontier models = Ferrari (impressive but high-maintenance)
+- Specialized models = Honda Civic (practical and reliable)
+- Libraries need Civics, not Ferraris
+
+<!-- Visual: Include slide_7_0.png or similar -->
+
+### Four Ways Framework
+<!-- Present with concrete examples -->
+1. Transform (OCR, transcription)
+2. Extract & Describe (entities, summaries)
+3. Organize (classify, categorize)
+4. Find (search, discover)
+
+<!-- Use actual library examples for each -->
+
+### The "Boring but Valuable" Principle
+- Most impactful AI = least glamorous tasks
+- Repetitive decisions that consume time
+- Clear categories and outcomes
+- 80% accuracy threshold
+
+<!-- Examples that resonate: -->
+<!-- - "Is this a letter or report?" -->
+<!-- - "What language is this?" -->
+<!-- - "Is this suitable for public access?" -->
+
+## Workshop Activities
+
+### Activity 1: Task Inventory (15 min)
+<!-- Individual reflection -->
+
+Questions to prompt:
+- What repetitive decision do you make most often?
+- What task has the biggest backlog?
+- What would you delegate if you had an assistant?
+
+<!-- Provide worksheet with: -->
+- Task description
+- Frequency (daily/weekly/monthly)
+- Time per item
+- Number of people doing similar work
+
+### Activity 2: Reality Check (10 min)
+<!-- Small groups -->
+
+Assess each task:
+- Clear categories? (2-5, 6-10, subjective)
+- Existing examples? (thousands, hundreds, few)
+- 80% accuracy useful? (definitely, probably, no)
+
+<!-- Red/yellow/green scoring -->
+
+### Activity 3: Impact Assessment (15 min)
+<!-- Small groups continue -->
+
+For promising tasks:
+- Hours saved per week?
+- What would you do with that time?
+- Concerns about AI doing this?
+- Who else would benefit?
+
+<!-- Capture on shared boards/slides -->
+
+### Activity 4: Sharing and Patterns (30 min)
+<!-- Full group -->
+
+- Each group shares top opportunity
+- Identify common themes
+- Map to four-way framework
+- Discuss feasibility
+
+<!-- Facilitator captures on whiteboard -->
+<!-- Look for cross-department applications -->
+
+## Facilitation Techniques
+
+### Setting the Right Tone
+- "No idea too boring"
+- "Think practical not fancy"
+- "What annoys you daily?"
+- Emphasize time savings not job replacement
+
+### Managing Dynamics
+- Mix departments for cross-pollination
+- Pair technical and non-technical staff
+- Encourage specific examples
+- Redirect from "wouldn't it be cool if..."
+
+### Common Challenges
+- **"Everything needs 100% accuracy"**
+  - Response: Discuss review workflows
+  - Show 80/20 impact examples
+  
+- **"We don't have the data"**
+  - Response: Often you do (past decisions = data)
+  - Start with what exists
+  
+- **"This will replace jobs"**
+  - Response: Focus on augmentation
+  - Highlight higher-value work enabled
+
+## Outcomes to Expect
+
+### Typical Discoveries
+- Same pain points across departments
+- Hidden data resources
+- Quick wins vs long-term projects
+- Champions emerge naturally
+
+### Common Task Categories
+<!-- From NLS experience -->
+- Document type classification
+- Language identification  
+- Quality assessment
+- Sensitivity screening
+- Subject categorization
+- Duplicate detection
+
+### Prioritization Criteria
+1. Impact (hours saved × people affected)
+2. Feasibility (data exists, clear outcomes)
+3. Reusability (multiple collections/departments)
+4. Risk (low consequence of errors)
+
+## Post-Workshop Actions
+
+### Immediate (same day)
+- Thank participants
+- Share summary of ideas
+- Identify quick wins
+- Schedule follow-ups
+
+### Short-term (1 week)
+- Detailed assessment forms for top candidates
+- Data availability audit
+- Stakeholder mapping
+- Pilot project proposals
+
+### Long-term (1 month)
+- Select 2-3 pilots
+- Form working groups
+- Develop success metrics
+- Communication plan
+
+## Materials and Resources
+
+### Presentation Materials
+<!-- Link to or embed from workshops folder -->
+- Slide deck template
+- Ferrari vs Honda Civic slides
+- Four ways framework visuals
+- Case study examples
+
+### Worksheets
+- Task inventory form
+- Reality check checklist
+- Impact assessment grid
+- Prioritization matrix
+
+### Facilitator Resources
+- Question prompts
+- Time management guide
+- Common objections and responses
+- Success stories from other libraries
+
+## Adapting for Your Context
+
+### Institutional Variations
+- Academic libraries: Research support focus
+- Public libraries: Community service angle
+- Archives: Preservation and access
+- Museums: Object description and interpretation
+
+### Scale Considerations
+- Small institutions: Focus on consortium opportunities
+- Large institutions: Department-specific sessions
+- Consortia: Shared challenges and solutions
+
+### Cultural Factors
+- Risk tolerance levels
+- Innovation readiness
+- Change management needs
+- Union considerations
+
+## Measuring Workshop Success
+
+### Immediate Indicators
+- Engagement level
+- Quality of examples shared
+- Number of viable opportunities identified
+- Participant enthusiasm
+
+### Long-term Metrics
+- Pilots launched from workshop ideas
+- Time savings achieved
+- Cross-department collaboration
+- Continued engagement
+
+## Next Steps
+
+<!-- Link to assessment tool chapter -->
+<!-- How to gather detailed requirements -->
+<!-- Moving from workshop to implementation -->
+
+---
+
+<!-- 
+Additional resources to develop:
+- Video examples of workshop segments
+- Downloadable slide templates
+- Facilitation training materials
+- Workshop evaluation forms
+- Case studies from different institution types
+-->
+
+<!-- 
+Quotes to add from participants:
+- "I never thought of that as AI"
+- "We've been doing this manually for years"
+- "80% would be life-changing"
+-->

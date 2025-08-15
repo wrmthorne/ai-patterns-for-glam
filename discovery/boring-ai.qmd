@@ -1,0 +1,187 @@
+# The Case for Boring AI
+
+<!-- 
+Main argument: Generative AI hype has limited library imagination about AI possibilities
+Key message: Most valuable AI for libraries is "boring" task-specific models
+-->
+
+## How Generative AI Hype Limits Library Imagination
+
+- ChatGPT's arrival in late 2022 shaped library AI discourse
+- Natural response: "How can we chat with our collections?"
+- This fixation overlooks vast landscape of practical applications
+<!-- Consider adding: Timeline of library AI projects pre/post ChatGPT -->
+<!-- Example institutions that pivoted to chatbots -->
+<!-- Cost comparisons: chatbot vs task-specific implementations -->
+
+## The Ferrari Problem
+
+- Quote from ModernBERT team about Ferrari vs Honda Civic [@modernbert2024]
+  - Link: https://huggingface.co/blog/modernbert
+  - Ferrari = GPT-4 (impressive but high maintenance)
+  - Honda Civic = specialized models (practical and everywhere)
+- Libraries trying to maintain Ferraris when they need Civics
+<!-- Could expand: Specific maintenance costs (compute, expertise, updates) -->
+<!-- Real examples of failed "Ferrari" projects in GLAM -->
+
+## The Chatbot Trap
+
+![The default "quick fix" approach to AI in libraries](../assets/workshop-slides/quickfix.jpg){fig-alt="Meme showing a quick fix solution" width=60%}
+
+### Default library AI projects:
+- Chatbot for catalog
+- AI research assistant  
+- Conversational discovery tool
+
+### Why these fail:
+- **High complexity, low impact**
+  - Complex NLU requirements
+  - Dialogue management challenges
+  - Edge case handling
+  - Computational resources
+  - Serves relatively few users
+  
+- **Solving the wrong problem**
+  - Users don't need to chat with catalogs
+  - Real problems: incomplete metadata, no OCR, poor classifications
+  <!-- Add: User research data on actual pain points -->
+  <!-- Statistics on chatbot usage vs traditional search -->
+
+## The Power of Boring
+
+### Examples of "boring" but transformative tasks:
+
+- **Document Type Classification**
+  - Letter vs report vs memo vs form
+  - Enables faceted search
+  - Current: manual cataloger review
+  - Impact: 95% accuracy, thousands/hour
+  
+- **Language Detection**  
+  - Routes to specialists
+  - Current: generalist staff scan
+  - Impact: 99% accuracy
+  
+- **Quality Assessment**
+  - Scan quality control
+  - Current: spot checks
+  - Impact: consistent standards
+  
+- **Sensitivity Screening**
+  - Personal information detection
+  - Current: page-by-page review
+  - Impact: automated flagging
+
+<!-- Add more examples from actual library implementations -->
+<!-- Include metrics: time saved, items processed, accuracy rates -->
+
+## Task-Specific Models: The Unsung Heroes
+
+### OCR Models
+- Historical typefaces
+- Handwriting by era
+- Layout preservation
+- Tables and marginalia
+<!-- Specific models: TrOCR, Tesseract variants, commercial options -->
+
+### Classification Models  
+- Domain taxonomies
+- Institutional preferences
+- Modest hardware requirements
+- Millions of items
+<!-- Examples: document type, genre, subject area -->
+
+### Extraction Models
+- Named entities (dates, people, places)
+- Bibliographic references
+- Structured data from forms
+- Catalog card layouts
+<!-- Tools: spaCy, BERT variants, rule-based systems -->
+
+## Sustainable AI for Libraries
+
+### Advantages of "boring AI":
+
+- **Lower barriers**
+  - Standard hardware
+  - Established techniques
+  - Less specialized expertise
+  - Existing workflow integration
+  
+- **Predictable outcomes**
+  - Clear metrics
+  - Consistent performance
+  - Easy validation
+  - Simple maintenance
+  
+- **Scalable impact**
+  - Entire collections
+  - Multiple departments
+  - Reusable solutions
+  - Institutional knowledge
+
+<!-- Cost comparisons with specific numbers -->
+<!-- Case studies of successful implementations -->
+
+## Reframing Success
+
+### Measure success by:
+- Staff hours reclaimed
+- Materials made discoverable
+- Metadata consistency
+- Processing speed
+- Backlog reduction
+
+<!-- Not by: press coverage, technological impressiveness, novelty -->
+<!-- Include specific KPIs and measurement strategies -->
+
+## The Path Forward
+
+1. Identify repetitive tasks
+2. Look for clear decisions
+3. Accept "good enough" (80% rule)
+4. Start small
+5. Build expertise
+6. Share solutions
+
+<!-- Expand each with specific techniques, worksheets, examples -->
+
+## A Different Vision
+
+### Imagine libraries where:
+- Automatic quality assessment
+- Pre-classification before review
+- Overnight transcription
+- Content-based suggestions
+- Automatic linking
+- Real-time screening
+
+<!-- None require chat interfaces -->
+<!-- All transform operations -->
+<!-- Concrete examples from institutions doing this -->
+
+## Next Steps
+
+<!-- Transition to framework chapter -->
+<!-- How to identify these opportunities -->
+<!-- Workshop methodology preview -->
+
+---
+
+<!-- 
+Additional topics to consider:
+- Environmental impact (small models vs large)
+- Equity issues (who can afford Ferraris?)
+- Skills development for library staff
+- Open source vs commercial solutions
+- Collaboration opportunities between institutions
+- Funding models for boring vs exciting AI
+-->
+
+<!-- 
+References to add:
+- ModernBERT blog post
+- Library case studies
+- Task-specific model papers
+- ROI analyses
+-->
