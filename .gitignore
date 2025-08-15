@@ -1,3 +1,23 @@
 /.quarto/
 /_book/
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Data directories
+sloane_data/
+sloane_index_cards_dataset/
+experiments/data_prep/sloane_data/
+experiments/data_prep/sloane_index_cards_dataset/
+
+# Data files
+*.zip
+*.parquet
+*.csv
+
+# Jupyter/Quarto
+.ipynb_checkpoints/
+.jupyter_cache/
