@@ -1,0 +1,32 @@
+# Welcome {.unnumbered}
+
+## About This Book
+
+This book presents practical AI design patterns for Galleries, Libraries, Archives, and Museums (GLAM). Rather than focusing on specific technologies that will inevitably change, we document **patterns** - proven approaches to solving recurring problems in cultural heritage institutions.
+
+## Who This Book Is For
+
+This resource serves multiple audiences within GLAM institutions:
+
+- **Library Leadership**: Strategic guidance for AI adoption and resource planning
+- **Project Coordinators**: Practical frameworks for implementing AI initiatives
+- **Technical Staff**: Implementation details and code examples
+- **Curious Staff**: Accessible explanations of AI capabilities and impacts
+
+## What You'll Find
+
+Each pattern in this book includes:
+
+- Real-world problem contexts from actual GLAM institutions
+- Solution approaches that work across different technologies
+- Decision frameworks to evaluate if a pattern fits your needs
+- Resource requirements and implementation guidance
+- Adaptation notes for different institutional contexts
+
+## How to Use This Book
+
+Start with the Introduction chapter to understand our approach, then explore patterns that match your institution's needs. Each pattern stands alone, so you can jump directly to what's most relevant.
+
+## About the Project
+
+This documentation emerged from AI consulting work with the National Library of Scotland, but the patterns and approaches apply broadly across the GLAM sector.

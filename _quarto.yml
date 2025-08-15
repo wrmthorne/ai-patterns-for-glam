@@ -1,0 +1,25 @@
+project:
+  type: book
+
+book:
+  title: "AI Design Patterns for GLAM"
+  author: "Daniel van Strien"
+  date: today
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - patterns/example-pattern.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    search: true
+  pdf:
+    documentclass: scrreprt
+
+
+

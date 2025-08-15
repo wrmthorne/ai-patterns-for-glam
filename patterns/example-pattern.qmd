@@ -1,0 +1,110 @@
+# Example Pattern: Structured Document Processing
+
+## The Challenge
+
+Many GLAM institutions have vast collections of structured documents - index cards, forms, registers - containing valuable information locked in physical or image formats. Manual transcription doesn't scale, but the structured nature of these documents makes them ideal candidates for AI-powered processing.
+
+## Solution Overview
+
+This pattern uses Visual Language Models (VLMs) combined with structured output generation to automatically extract information from document images while preserving the original structure and relationships.
+
+## Implementation Approaches
+
+::: {.panel-tabset}
+
+### For Decision Makers
+
+**Business Case**
+- Reduce transcription costs by 80-90%
+- Process decades of backlog in months, not years
+- Free staff for higher-value curatorial work
+
+**Resource Requirements**
+- Initial setup: 2-3 weeks
+- Staff training: 1 week
+- Ongoing supervision: 10% of manual effort
+
+**Success Metrics**
+- Documents processed per day
+- Accuracy rate vs manual transcription
+- Staff time saved
+
+::: {.callout-tip}
+Start with a pilot of 1,000 documents to establish baseline metrics before scaling up.
+:::
+
+### For Project Coordinators
+
+**Workflow Integration**
+1. Digitize documents (if not already digital)
+2. Run AI extraction pipeline
+3. Quality check sample outputs
+4. Import to catalog system
+
+**Change Management**
+- Involve catalogers early in the process
+- Emphasize AI as assistant, not replacement
+- Create feedback loops for continuous improvement
+
+**Quality Assurance**
+- Implement confidence scoring
+- Flag uncertain extractions for review
+- Regular accuracy audits
+
+::: {.callout-warning}
+Always maintain human oversight - AI should augment, not replace, professional judgment.
+:::
+
+### For Technical Staff
+
+**Architecture Overview**
+```python
+# Example pipeline structure
+def process_document(image_path):
+    # 1. Load and preprocess image
+    image = load_image(image_path)
+    
+    # 2. Extract text with VLM
+    extracted_data = vlm_extract(image, schema)
+    
+    # 3. Validate against schema
+    validated_data = validate_structure(extracted_data)
+    
+    # 4. Export to desired format
+    return export_to_catalog(validated_data)
+```
+
+**Key Technologies**
+- Vision Language Models (GPT-4V, Claude Vision)
+- Structured output (JSON Schema, Pydantic)
+- Quality metrics (confidence scores, validation)
+
+::: {.callout-note collapse="true"}
+## Technical Deep Dive
+
+For production deployment, consider:
+- Batch processing for efficiency
+- Caching for repeated elements
+- Progressive enhancement strategies
+- Error handling and retry logic
+:::
+
+:::
+
+## When to Use This Pattern
+
+**Good Fit:**
+- Structured, repetitive documents
+- Clear visual layout
+- High volume of similar items
+- Existing digital images
+
+**Poor Fit:**
+- Highly variable formats
+- Handwritten cursive text
+- Documents requiring deep interpretation
+- Low volume, high complexity items
+
+## Real-World Example
+
+The National Library of Scotland successfully applied this pattern to their index card collection, processing 50,000 cards in 2 weeks with 95% accuracy.
