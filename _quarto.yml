@@ -8,8 +8,12 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - patterns/example-pattern.qmd
-    - ocr-evaluation.qmd
+    - part: "Design Patterns"
+      chapters:
+        - patterns/example-pattern.qmd
+    - part: "Technology Evaluations"
+      chapters:
+        - ocr-evaluation.qmd
     - references.qmd
 
 bibliography: references.bib
