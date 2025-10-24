@@ -1,6 +1,15 @@
 project:
   type: book
 
+execute:
+  freeze: auto
+  
+jupyter:
+  kernelspec:
+    name: ai-patterns-venv
+    language: python
+    display_name: "AI Patterns venv"
+
 book:
   title: "AI Design Patterns for GLAM"
   author: "Daniel van Strien"
@@ -21,6 +30,9 @@ book:
       chapters:
         - ocr-evaluation.qmd
         - vlm-structured-generation.qmd
+    - part: "Infrastructure Considerations"
+      chapters:
+        - infrastructure/hardware-considerations.qmd
     - references.qmd
     - part: "Appendices"
       chapters:
