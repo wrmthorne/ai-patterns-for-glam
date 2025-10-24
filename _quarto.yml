@@ -3,7 +3,7 @@ project:
 
 execute:
   freeze: auto
-  
+
 jupyter:
   kernelspec:
     name: ai-patterns-venv
@@ -30,9 +30,6 @@ book:
       chapters:
         - ocr-evaluation.qmd
         - vlm-structured-generation.qmd
-    - part: "Infrastructure Considerations"
-      chapters:
-        - infrastructure/hardware-considerations.qmd
     - references.qmd
     - part: "Appendices"
       chapters:
@@ -47,6 +44,3 @@ format:
     search: true
   pdf:
     documentclass: scrreprt
-
-
-
