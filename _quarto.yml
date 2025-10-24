@@ -6,9 +6,9 @@ execute:
 
 jupyter:
   kernelspec:
-    name: ai-patterns-venv
+    name: python3
     language: python
-    display_name: "AI Patterns venv"
+    display_name: "Python 3"
 
 book:
   title: "AI Design Patterns for GLAM"
