@@ -1,0 +1,82 @@
+name: Publish to Hugging Face
+
+on:
+  # Manual trigger via GitHub UI
+  workflow_dispatch:
+
+  # OR automatic trigger when pushing to 'publish' branch
+  push:
+    branches:
+      - publish
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Render Quarto book
+        run: quarto render
+
+      - name: Deploy to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE: ${{ secrets.HF_SPACE }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+          # Clone the HF Space repo
+          git clone https://${{ secrets.HF_USERNAME }}:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE hf-space
+
+          # Copy rendered book to HF Space
+          rm -rf hf-space/*
+          cp -r _book/* hf-space/
+
+          # Create/update README for the Space
+          cat > hf-space/README.md << 'EOF'
+---
+title: AI Design Patterns for GLAM
+emoji: 📚
+colorFrom: blue
+colorTo: green
+sdk: static
+pinned: false
+---
+
+# AI Design Patterns for GLAM
+
+This book presents practical AI design patterns for Galleries, Libraries, Archives, and Museums (GLAM).
+
+View the book at: [https://huggingface.co/spaces/${{ secrets.HF_SPACE }}](https://huggingface.co/spaces/${{ secrets.HF_SPACE }})
+
+Source code: [GitHub](https://github.com/${{ github.repository }})
+EOF
+
+          # Commit and push to HF
+          cd hf-space
+          git add .
+
+          # Only commit and push if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "Deploy book from GitHub Actions (commit: ${{ github.sha }})"
+            git push
+            echo "✅ Successfully deployed to Hugging Face Space"
+          else
+            echo "ℹ️ No changes to deploy"
+          fi
