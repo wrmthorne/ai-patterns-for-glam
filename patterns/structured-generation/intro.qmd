@@ -1,0 +1,17 @@
+# Example Pattern: Structured Document Processing
+
+## The Challenge
+
+Many GLAM institutions have vast collections of structured documents - index cards, forms, registers - containing valuable information locked in physical or image formats. Manual transcription doesn't scale, but the structured nature of these documents makes them ideal candidates for AI-powered processing.
+
+## Don't we just need OCR?
+
+<!-- WHY OCR might not be sufficient -->
+
+## Solution Overview
+
+This pattern uses Visual Language Models (VLMs) combined with structured output generation to automatically extract information from document images while preserving the original structure and relationships.
+
+### What this pattern looks like? 
+
+<!-- Example diagram or illustration of the pattern -->
