@@ -1,0 +1,446 @@
+---
+title: "Structured Information Extraction with Vision Language Models"
+execute:
+  cache: true
+  freeze: auto
+---
+
+## Introduction
+
+Using VLMs for structured extraction from historical documents.
+
+## An example dataset
+
+```{python}
+#| cache: true
+from datasets import load_dataset
+
+ds = load_dataset("davanstrien/sloane-index-cards", split="train")
+ds[0]
+```
+
+```{python}
+ds[0]["image"]
+```
+
+
+```{python}
+ds[2]["image"]
+```
+
+
+```{python}
+ds[50]["image"]
+```
+
+
+## Setup
+
+### Start LM Studio
+
+<!-- TODO we may want to have a whole short chapter on Local LM tools -->
+
+We'll use LM Studio for this notebook. Since we are using the OpenAI Python client to interact with models run by LM Studio it will be fairly easy to switch to a different model/tool for running the models since many tools have an OpenAI compatible endpoint. 
+
+```{python}
+!lms
+```
+
+We can check that LM Studio is running by using the `lms server start` command. 
+
+```{python}
+!lms server start
+```
+
+### Connect to LM Studio
+
+We can use the OpenAI Pyton client (TODO add link), to  connect to LM studio. By default LM studio is running on port `1234` on localhost so we can connect to it here. The default `api_key` is `lm-studio`. 
+
+```{python}
+#| cache: true
+
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:1234/v1",
+    api_key="lm-studio"
+)
+```
+
+We can use various different methods with the client, for example we can access the models available:
+```{python}
+from rich import print as rprint
+models = client.models.list()
+rprint(f"Connected. Models: {[m.id for m in models.data]}")
+```
+
+
+<!-- TODO do we want to show model downloading in this notebook or move that somewhere else? -->
+:::{.callout-tip}
+The models you will have available will differ from what's shown above. 
+:::
+
+
+## Basic VLM Query
+
+<!-- TODO update to QwenVL3 when released -->
+
+```{python}
+#| cache: true
+#| code-fold: true
+import base64
+from PIL.Image import Image as PILImage
+from io import BytesIO
+
+def query_image(image: str | PILImage, prompt: str, model: str='qwen3-vl-2b-instruct-mlx'):
+    """Query VLM with an image."""
+    if isinstance(image, PILImage):
+        # Convert PIL Image to bytes and encode to base64
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    else:
+        # Assume image is a file path
+        with open(image, "rb") as f:
+            image_base64 = base64.b64encode(f.read()).decode('utf-8')
+    #
+    # Query
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{
+            "role": "user",
+            "content": [
+                {"type": "text", "text": prompt},
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}}
+            ]
+        }]
+    )
+    return response.choices[0].message.content
+```
+
+
+## 102: Simple VLM Query Example
+
+Here is a simple example of querying the VLM to describe an image from the dataset:
+
+```{python}
+#| cache: true
+image = ds[0]["image"]
+
+# Query the VLM to describe the image
+description = query_image(image, "Describe this image.", model='qwen3-vl-2b-instruct-mlx')
+rprint(description)
+```
+
+We can see we get a fairly useful description of the card. If we compare against the image we can see most of the details it mentions appear to be largely correct.
+
+```{python}
+image
+```
+
+We can see that there are some areas where the model adds some "corrections" for example `Sloane's Library.` vs `Sloanes Library.` (added the `'`'). This could be useful for some workflows but often an open ended description like this isn't what we want if we want to take some action or do something based on the predictions of the model. In these cases it's usually nice to have some more controlled output, for example, a label.
+
+## Classification 
+
+<!-- TODO maybe we have a "chapter" or "section" with tasks which we can then embedded across other parts of the book? -->
+
+We'll define a fairly simple prompt that asks the VLM to decide if a page is one of three categories. We describe each of these categopries and then ask the model to only return one of these as the output. We'll do this for ten examples and we'll also log how long it's taking.
+
+```{python}
+#| cache: true
+import time
+from tqdm.auto import tqdm
+
+sample_size = 10
+
+sample = ds.take(sample_size)
+
+prompt = """Classify this image into one of the following categories:
+
+1. **Index/Reference Card**: A library catalog or reference card
+
+2. **Manuscript Page**: A handwritten or historical document page
+
+3. **Other**: Any document that doesn't fit the above categories
+
+Examine the overall structure, layout, and content type to determine the classification. Focus on whether the document is a structured catalog/reference tool (Index Card) or a historical manuscript with continuous text (Manuscript Page).
+
+Return only the category name: "Index/Reference Card", "Manuscript Page", or "Other"
+"""
+
+results = []
+# Time the execution using standard Python
+start_time = time.time()
+for row in tqdm(sample):
+    image = row['image']
+    results.append(query_image(image, prompt))
+elapsed_time = time.time() - start_time
+print(f"Execution time: {elapsed_time:.2f} seconds")
+rprint(results)
+```
+
+Let's check the result that was predicted as "other"
+```{python}
+sample[1]['image']
+```
+
+We can see how long this would take for the full dataset
+
+```{python}
+#| cache: true
+print(f"Execution time: {elapsed_time/60:.2f} minutes")
+```
+
+### Classifying with structured labels
+
+
+```{python}
+from pydantic import BaseModel, Field
+from typing import Literal
+
+class PageCategory(BaseModel):
+    category: Literal["Index/Reference Card", "Manuscript Page", "other"] = Field(
+        ..., description="The category of the image"
+    )
+
+PageCategory
+```
+
+
+```{python}
+buffered = BytesIO()
+image.save(buffered, format="JPEG")
+image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+completion = client.beta.chat.completions.parse(
+    model="qwen/qwen2.5-vl-7b",
+    messages=[
+         {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": prompt,
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
+                },
+            ],
+        },
+    ],
+    max_tokens=100,
+    temperature=0.7,
+    response_format=PageCategory,
+)
+rprint(completion)
+rprint(completion.choices[0].message.parsed)
+```
+
+```{python}
+image
+```
+
+
+### Beyond classifying 
+
+So far we've focused on classifying images but what if we want to extract information from the images? Let's take the first example
+```{python}
+# | cache: true
+index_image = ds[0]['image']
+index_image
+``` 
+
+
+```{python}
+from pydantic import BaseModel, Field
+from typing import Optional
+
+
+class BritishLibraryReprographicCard(BaseModel):
+    """
+    Pydantic model for extracting information from British Library Reference Division 
+    reprographic cards used to document manuscripts and other materials.
+    """
+    
+    department: str = Field(
+        ..., 
+        description="The division that holds the material (e.g., 'MANUSCRIPTS')"
+    )
+    
+    shelfmark: str = Field(
+        ..., 
+        description="The library's classification/location code (e.g., 'SLOANE 3972.C. (VOL 1)')"
+    )
+    
+    order: str = Field(
+        ..., 
+        description="Order reference, typically starting with 'SCH NO' followed by numbers"
+    )
+    
+    author: Optional[str] = Field(
+        None, 
+        description="Author name if present, null if blank or marked with diagonal line"
+    )
+    
+    title: str = Field(
+        ..., 
+        description="The name of the work or manuscript"
+    )
+    
+    place_and_date_of_publication: Optional[str] = Field(
+        None, 
+        description="Place and date of publication if present, null if blank"
+    )
+    
+    reduction: int = Field(
+        ..., 
+        description="The reduction number shown at the bottom of the card"
+    )
+```
+
+
+```{python}
+def query_image_structured(image, prompt, schema, model='qwen3-vl-2b-instruct-mlx'):
+    """
+    Query VLM with an image and get structured output based on a Pydantic schema.
+    
+    Args:
+        image: PIL Image or file path to the image
+        prompt: Text prompt describing what to extract
+        schema: Pydantic model class defining the expected output structure
+        model: Model ID to use for the query
+    
+    Returns:
+        Parsed Pydantic model instance with the extracted data
+    """
+    # Convert image to base64
+    if isinstance(image, PILImage):
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    else:
+        with open(image, "rb") as f:
+            image_base64 = base64.b64encode(f.read()).decode('utf-8')
+    
+    # Query with structured output
+    completion = client.beta.chat.completions.parse(
+        model=model,
+        messages=[{
+            "role": "user",
+            "content": [
+                {"type": "text", "text": prompt},
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}}
+            ]
+        }],
+        response_format=schema,
+        temperature=0.3  # Lower temperature for more consistent extraction
+    )
+    
+    # Return the parsed structured data
+    return completion.choices[0].message.parsed
+```
+
+```{python}
+# Example usage
+extraction_prompt = """
+Extract the information from this British Library card into structured data.
+
+Read each field on the card and extract the following information:
+- department: The division name (e.g., "MANUSCRIPTS")
+- shelfmark: The catalog number (e.g., "SLOANE 3972.C. (VOL 1)")
+- order: The SCH NO reference number
+- author: The author name, or null if blank
+- title: The full title of the work
+- place_and_date_of_publication: Publication info, or null if blank
+- reduction: The reduction number (as integer) at bottom of card
+
+Return the exact text as shown on the card. For empty fields with diagonal lines or no text, use null.
+"""
+result = query_image_structured(index_image, extraction_prompt, BritishLibraryReprographicCard)
+rprint(result)
+```
+
+```{python}
+rprint(result)
+```
+
+```{python}
+index_image
+```
+
+
+
+### Classify and then parse
+
+
+<!-- ```{python}
+from tqdm.auto import tqdm
+import time
+
+# Define the classification prompt
+classification_prompt = """
+Classify this document into one of these categories:
+- Index/Reference Card: A library catalog or reference card
+- Manuscript Page: A handwritten or historical document page
+- Other: Any document that doesn't fit the above categories
+
+Return only the category name.
+"""
+
+# Choose how many to process (None for full dataset)
+sample_size = 10  # Change to None for full dataset
+sample_size = None
+data_to_process = ds.take(sample_size) if sample_size else ds
+
+# Classify all images
+results = []
+start_time = time.time()
+
+for row in tqdm(data_to_process, desc="Classifying images"):
+   try:
+       result = query_image_structured(
+           image=row['image'],
+           prompt=classification_prompt,
+           schema=PageCategory,
+           model="lmstudio-community/Qwen2.5-VL-3B-Instruct-GGUF"
+       )
+       results.append(result.category)
+   except Exception as e:
+       print(f"Error processing image: {e}")
+       results.append("error")
+
+# Print statistics
+elapsed_time = time.time() - start_time
+print(f"\nProcessed {len(results)} images in {elapsed_time:.2f} seconds")
+print(f"Average time per image: {elapsed_time/len(results):.2f} seconds")
+
+# Show first few results
+print(f"\nFirst 5 results: {results[:5]}")
+
+# Count each category
+from collections import Counter
+category_counts = Counter(results)
+print("\nClassification breakdown:")
+for category, count in category_counts.items():
+   percentage = (count / len(results)) * 100
+   print(f"  {category}: {count} ({percentage:.1f}%)")
+``` -->
+
+<!-- ```{python}
+# Add the classifications back to the dataset as a new column
+ds_with_labels = ds.add_column('document_type', results)
+
+# Verify it worked
+print(f"\nFirst record with new label:")
+print(f"  Document type: {ds_with_labels[0]['document_type']}")
+```
+
+```{python}
+ds_with_labels.push_to_hub('davanstrien/sloane-index-cards')
+``` -->
+
+## Notes
+
+- `cache: true` - Caches expensive computations
+- `freeze: auto` - Only re-runs when source changes
+- `eval: false` - Skip execution for example code
