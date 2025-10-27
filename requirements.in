@@ -6,3 +6,7 @@ jupyter
 jupyter-cache
 rich
 tqdm
+stamina
+aiohttp
+aiofiles
+matplotlib
