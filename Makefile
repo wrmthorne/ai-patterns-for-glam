@@ -3,6 +3,7 @@
 # Configuration
 SPACE_ID := davanstrien/ai-patterns-for-glam
 BOOK_DIR := _book
+VENV := .venv
 
 help:
 	@echo "Available commands:"
@@ -13,11 +14,11 @@ help:
 
 render:
 	@echo "📖 Rendering book..."
-	quarto render
+	@bash -c "source $(VENV)/bin/activate && quarto render"
 
 preview:
 	@echo "👀 Previewing book..."
-	quarto preview
+	@bash -c "source $(VENV)/bin/activate && quarto preview"
 
 publish: render
 	@echo "🚀 Publishing to Hugging Face Space..."
@@ -25,7 +26,7 @@ publish: render
 		echo "❌ Error: $(BOOK_DIR)/ not found"; \
 		exit 1; \
 	fi
-	@python3 -c "from huggingface_hub import HfApi; \
+	@bash -c "source $(VENV)/bin/activate && python -c \"from huggingface_hub import HfApi; \
 		api = HfApi(); \
 		api.upload_folder( \
 			folder_path='$(BOOK_DIR)', \
@@ -33,7 +34,7 @@ publish: render
 			repo_type='space', \
 			commit_message='Update book from local render' \
 		); \
-		print('✅ Published to https://huggingface.co/spaces/$(SPACE_ID)')"
+		print('✅ Published to https://huggingface.co/spaces/$(SPACE_ID)');\""
 
 clean:
 	@echo "🧹 Cleaning build artifacts..."
