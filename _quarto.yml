@@ -2,7 +2,7 @@ project:
   type: book
 
 execute:
-  freeze: auto
+  freeze: true
 
 jupyter:
   kernelspec:
@@ -16,24 +16,27 @@ book:
   date: today
   chapters:
     - index.qmd
-    - intro.qmd
+    # - intro.qmd # TODO
     - part: "Beyond Chatbots: Finding AI Opportunities"
       chapters:
         - discovery/boring-ai.qmd
-        - discovery/framework.qmd
-        - discovery/workshop-approach.qmd
-        - discovery/assessment-tool.qmd
+
     - part: "Design Patterns"
       chapters:
-        - patterns/example-pattern.qmd
-    - part: "Technology Evaluations"
+        - patterns/what-is-an-ai-pattern.qmd
+
+    - part: "Structured Information Extraction"
       chapters:
-        - ocr-evaluation.qmd
-        - vlm-structured-generation.qmd
-    - references.qmd
-    - part: "Appendices"
-      chapters:
-        - appendix/assessment-form.qmd
+        - patterns/structured-generation/intro.qmd
+        - patterns/structured-generation/vlm-structured-generation.qmd
+        - patterns/structured-generation/advisor-index-cards.ipynb
+    # - part: "Technology Evaluations"
+    #   chapters:
+    #     - ocr-evaluation.qmd
+    # - references.qmd
+    # - part: "Appendices"
+    #   chapters:
+    #     - appendix/assessment-form.qmd
 
 bibliography: references.bib
 
