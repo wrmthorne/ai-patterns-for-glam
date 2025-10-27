@@ -18,8 +18,8 @@ book:
     - index.qmd
     # - intro.qmd # TODO
     - part: "Beyond Chat Interfaces to Collections?"
-      chapters:
-        - discovery/boring-ai.qmd
+      # chapters:
+      #   - discovery/boring-ai.qmd
 
     - part: "Design Patterns"
       chapters:
