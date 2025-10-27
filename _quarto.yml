@@ -17,7 +17,7 @@ book:
   chapters:
     - index.qmd
     # - intro.qmd # TODO
-    - part: "Beyond Chatbots: Finding AI Opportunities"
+    - part: "Beyond Chat Interfaces to Collections?"
       chapters:
         - discovery/boring-ai.qmd
 
