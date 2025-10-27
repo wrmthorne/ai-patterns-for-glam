@@ -21,3 +21,5 @@ experiments/data_prep/sloane_index_cards_dataset/
 # Jupyter/Quarto
 .ipynb_checkpoints/
 .jupyter_cache/
+
+**/*.quarto_ipynb
