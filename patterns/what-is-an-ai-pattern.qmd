@@ -1,1 +1,39 @@
 # What is an AI Pattern?
+
+A pattern is a reusable solution to a commonly occurring problem. The concept comes from architecture—Christopher Alexander's work on design patterns—and was later adopted by software engineering. In this book, we apply the same idea to AI implementations in GLAM contexts.
+
+## Why Patterns?
+
+AI and machine learning are evolving rapidly. The models, APIs, and frameworks we use today will be superseded—often within months. But the underlying problems—extracting structured data from historical documents, assessing condition at scale, making collections discoverable—persist.
+
+Patterns help us in three ways:
+
+**They're technology-agnostic.** A pattern describes *what* problem you're solving and *why* an approach works, not just *which* model to use. When better models emerge, the pattern still applies.
+
+**They're communicable.** Patterns give teams a shared vocabulary. Saying "we're using a structured extraction pattern" conveys more than listing the specific models and APIs involved.
+
+**They're adaptable.** The same pattern can be implemented differently depending on your constraints—budget, infrastructure, staff expertise, risk tolerance.
+
+## Anatomy of a Pattern
+
+Each pattern in this book follows a consistent structure:
+
+**The Challenge**
+What recurring problem does this pattern address? What makes it difficult or impossible to solve with traditional approaches?
+
+**Solution Overview**
+The high-level approach. What makes this work? What are the key components?
+
+**Implementation**
+Technical walkthrough with working code. We use real examples from GLAM collections, not toy datasets.
+
+**Considerations**
+When should you use this pattern? What are the tradeoffs? What might go wrong?
+
+## Patterns in This Book
+
+This book currently covers:
+
+- **Structured Information Extraction** — Using Vision Language Models to extract structured metadata from document images (index cards, forms, registers)
+
+Additional patterns will be added as the book develops.

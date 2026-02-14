@@ -1,8 +1,7 @@
 ---
 title: "Structured Information Extraction with Vision Language Models"
 execute:
-  cache: true
-  freeze: auto
+  freeze: true
 ---
 
 ## Introduction
@@ -176,7 +175,7 @@ import base64
 from PIL.Image import Image as PILImage
 from io import BytesIO
 
-def query_image(image: str | PILImage, prompt: str, model: str='qwen3-vl-2b-instruct-mlx', max_image_size: int=1024):
+def query_image(image: str | PILImage, prompt: str, model: str='qwen3-vl-2b-instruct-mlx', max_image_size: int=1024, client=hf_client) -> str:
     """Query VLM with an image."""
     if isinstance(image, PILImage):
         # Convert PIL Image to bytes and encode to base64
@@ -216,7 +215,7 @@ To get started let's do a simple query to describe an image from the dataset.
 image = ds[0]["image"]
 
 # Query the VLM to describe the image
-description = query_image(image, "Describe this image.", model='qwen3-vl-2b-instruct-mlx')
+description = query_image(image, "Describe this image.", model='Qwen/Qwen3-VL-8B-Instruct')
 rprint(description)
 ```
 
@@ -261,7 +260,7 @@ results = []
 start_time = time.time()
 for row in tqdm(sample):
     image = row['image']
-    results.append(query_image(image, prompt))
+    results.append(query_image(image, prompt, model='Qwen/Qwen3-VL-8B-Instruct'))
 elapsed_time = time.time() - start_time
 print(f"Execution time: {elapsed_time:.2f} seconds")
 rprint(results)
@@ -310,11 +309,12 @@ class PageCategory(BaseModel):
 When using the OpenAI client we can specify this Pydantic model as the `response_format` when making the request. This tells the model to return the output in a format that can be parsed into the Pydantic model (the APIs for this are still evolving so may change slightly over time).
 
 ```{python}
+
 buffered = BytesIO()
 image.save(buffered, format="JPEG")
 image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
-completion = client.beta.chat.completions.parse(
-    model="qwen/qwen2.5-vl-7b",
+completion = hf_client.beta.chat.completions.parse(
+    model="Qwen/Qwen3-VL-8B-Instruct",
     messages=[
          {
             "role": "user",
@@ -330,7 +330,7 @@ completion = client.beta.chat.completions.parse(
             ],
         },
     ],
-    max_tokens=100,
+    max_tokens=200,
     temperature=0.7,
     response_format=PageCategory,
 )

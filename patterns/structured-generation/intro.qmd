@@ -1,17 +1,50 @@
-# Example Pattern: Structured Document Processing
+# Structured Document Processing
 
 ## The Challenge
 
-Many GLAM institutions have vast collections of structured documents - index cards, forms, registers - containing valuable information locked in physical or image formats. Manual transcription doesn't scale, but the structured nature of these documents makes them ideal candidates for AI-powered processing.
+Many GLAM institutions have vast collections of structured documents—index cards, forms, registers—containing valuable information locked in physical or image formats. Manual transcription doesn't scale, but the structured nature of these documents makes them ideal candidates for AI-powered processing.
+
+Unlocking this data means better discovery, new research possibilities, and integration with modern cataloguing systems.
 
 ## Don't we just need OCR?
 
-<!-- WHY OCR might not be sufficient -->
+Traditional OCR extracts text from images, but that's only half the problem. Consider an index card with a name, date, reference number, and description arranged in specific positions. OCR gives you a block of text—but not which part is the name, which is the date, or how they relate.
+
+Often, you don't even need the raw text—you need the *information* it contains. A catalogue record doesn't need "Mr. John Smith, 1847" preserved exactly; it needs `name: "John Smith"` and `year: 1847` as usable data.
+
+With OCR alone, you still need someone to parse text into structured fields. For hundreds of documents, that's manageable. For hundreds of thousands, it's not.
 
 ## Solution Overview
 
-This pattern uses Visual Language Models (VLMs) combined with structured output generation to automatically extract information from document images while preserving the original structure and relationships.
+Structured extraction is a pattern that works across modalities—text, images, audio transcripts. The core idea is the same: constrain a model to return data in a predefined schema rather than freeform text.
 
-### What this pattern looks like? 
+For document images, we use Vision Language Models (VLMs). Unlike OCR, VLMs understand both visual layout and textual content together. They can see that "1847" appears in the date field position, not just that the characters "1847" exist somewhere on the page.
 
-<!-- Example diagram or illustration of the pattern -->
+Structured output generation constrains the model to return your fields, your format. The result: input in, structured JSON out.
+
+This section focuses on the image case—extracting from document images—but the same principles apply when working with text or other formats.
+
+### What this pattern looks like
+
+```{mermaid}
+flowchart LR
+    A[Document Image] --> B[VLM + Schema]
+    B --> C[Structured JSON]
+    C --> D[Catalogue/Database]
+```
+
+The following chapters walk through this in detail—starting with basic VLM queries, then building to real extraction workflows with evaluation strategies.
+
+## When to Use This Pattern
+
+**Good fit:**
+
+- Forms, index cards, registers with consistent layouts
+- Documents where you know what fields you want to extract
+- Collections too large for manual transcription
+
+**Less suited:**
+
+- Free-form manuscripts with no predictable structure
+- Documents requiring deep contextual interpretation
+- Cases where verbatim transcription is the goal (use OCR instead)
