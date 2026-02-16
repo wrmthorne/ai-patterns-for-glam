@@ -8,7 +8,7 @@ execute:
 
 In this chapter we'll start to look at how we can use Visual Language Models (VLMs) to extract structured information from images of documents.
 
-We already saw what this looked like at a conceptual level in the previous chapter. In this chapter we'll get hands on with some code examples to illustrate how this can be done in practice. To start we'll focus on some relativey simple documents and tasks. This allows us to focus on the core concepts without getting bogged down in too many complexities. It also means we can use open source models that can be run locally. 
+We already saw what this looked like at a conceptual level in the previous chapter. In this chapter we'll get hands on with some code examples to illustrate how this can be done in practice. To start we'll focus on some relatively simple documents and tasks. This allows us to focus on the core concepts without getting bogged down in too many complexities. We'll use open source models accessed via the Hugging Face Inference API (you can also run them locally — see the [appendix](#appendix-using-a-local-model)).
 
 ## The Sloane Index Cards Dataset
 
@@ -56,117 +56,42 @@ We'll look at how we can use VLMs to work with kind of collection.
 
 ## Setup
 
-### Start LM Studio
+### Connecting to a Vision Language Model
 
-<!-- TODO we may want to have a whole short chapter on Local LM tools -->
+We'll use [Hugging Face Inference Providers](https://huggingface.co/docs/api-inference/) to access VLMs via an API. This means we don't need to install or run any models locally — we just need a free Hugging Face account and an API token.
 
-We'll use LM Studio for this notebook. Since we'll be using the OpenAI Python client to interact with models run by LM Studio it will be fairly easy to switch to a different model/tool for running the models since many tools have an OpenAI compatible endpoint.
+Since the Hugging Face Inference API is compatible with the OpenAI Python client, all the code in this chapter will also work with local model servers (like LM Studio, Ollama, or vLLM) with just a one-line change to the client setup. See the [appendix](#appendix-using-a-local-model) at the end of this chapter for details.
 
-::: {.callout}
-If you haven't already, make sure to install LM Studio by following the instructions on the [LM Studio website](https://lmstudio.ai/home).
+::: {.callout-tip}
+## Getting a Hugging Face Token
+
+1. Create a free account at [huggingface.co](https://huggingface.co/join)
+2. Go to [Settings → Access Tokens](https://huggingface.co/settings/tokens)
+3. Create a new token with **Read** access
+4. Set it as an environment variable: `export HF_TOKEN=hf_...` or add it to a `.env` file
 :::
-
-While LM Studio is primarily known as a GUI tool for interacting with local LLMs, it also includes a built-in API server that is compatible with the OpenAI API. This allows us to use the same code we would use for OpenAI hosted models to interact with local models running in LM Studio.
-
-LM Studio has a command line interface (CLI) that we can use to start the server. We can check that the `lms` command is available here:
-
-```{python}
-!lms
-```
-
-We can check that LM Studio server is running by using the `lms server start` command. 
-
-```{python}
-!lms server start
-```
-
-### Connect to LM Studio
-
-We can use the OpenAI Python client (TODO add link), to  connect to LM studio. By default LM studio is running on port `1234` on localhost so we can connect to it here. The default `api_key` is `lm-studio`.
 
 ```{python}
 #| cache: true
-
-from openai import OpenAI
-
-client = OpenAI(
-    base_url="http://localhost:1234/v1",
-    api_key="lm-studio"
-)
-```
-
-We can use various different methods with the client, for example we can access the models available:
-```{python}
-from rich import print as rprint
-models = client.models.list()
-rprint(f"Connected. Models: {[m.id for m in models.data]}")
-```
-
-
-<!-- TODO do we want to show model downloading in this notebook or move that somewhere else? -->
-
-
-:::{.callout-note collapse="true"}
-## Alternative: Using Hugging Face Inference Providers
-
-This is WIP. TODO add an alternative path that doesn't require any local model hosting using Inference Providers instead. sl
-
-```{python}
-from huggingface_hub import list_models
-from rich import print as rprint
-vlm_models = list(list_models(filter="image-text-to-text", inference_provider='all', sort='trending_score', expand=['safetensors']))
-rprint(vlm_models[:5])
-vlm_models[0].safetensors.total
-```
-
-```{python}
-max_params = 8767123696 # ~8.7B parameters
-vlm_models = list_models(filter="image-text-to-text", inference_provider='all', sort='trending_score', expand=['safetensors'])
-vlm_models_small = [m for m in vlm_models if m.safetensors and m.safetensors.total <= max_params]
-[m.id for m in vlm_models_small]
-```
-
-```{python}
 import os
 from openai import OpenAI
+from rich import print as rprint
 from dotenv import load_dotenv
 load_dotenv()
 
-hf_client = OpenAI(
+client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key=os.environ["HF_TOKEN"],
+    api_key=os.environ.get("HF_TOKEN"),
 )
-
-completion = hf_client.chat.completions.create(
-    model="Qwen/Qwen3-VL-8B-Instruct",
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "Describe this image in one sentence."
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": "https://cdn.britannica.com/61/93061-050-99147DCE/Statue-of-Liberty-Island-New-York-Bay.jpg"
-                    }
-                }
-            ]
-        }
-    ],
-)
-
-print(completion.choices[0].message)
 ```
-:::
+
+We'll use `Qwen/Qwen3-VL-8B-Instruct` throughout this chapter — an 8 billion parameter vision-language model that offers a good balance of quality and speed for document understanding tasks.
 
 ## Basic VLM Query
 
 Let's start by defining a simple function that we can use to query a VLM with an image and a prompt. This function will handle converting the image to base64 and sending the request to the model. 
 
-For this notebook we'll default to using the `qwen3-vl-2b` model which is a small 2 billion parameter model that can be run locally in LM Studio. We may want to experiment with different models later on or try slightly bigger models but this one should be sufficient for our initial experiments.
+We'll default to using the `Qwen/Qwen3-VL-8B-Instruct` model via HF Inference Providers. You could experiment with different models later on — the code works with any OpenAI-compatible VLM endpoint.
 
 ```{python}
 #| cache: true
@@ -175,7 +100,7 @@ import base64
 from PIL.Image import Image as PILImage
 from io import BytesIO
 
-def query_image(image: str | PILImage, prompt: str, model: str='qwen3-vl-2b-instruct-mlx', max_image_size: int=1024, client=hf_client) -> str:
+def query_image(image: str | PILImage, prompt: str, model: str='Qwen/Qwen3-VL-8B-Instruct', max_image_size: int=1024, client=client) -> str:
     """Query VLM with an image."""
     if isinstance(image, PILImage):
         # Convert PIL Image to bytes and encode to base64
@@ -237,6 +162,7 @@ We'll define a fairly simple prompt that asks the VLM to decide if a page is one
 #| cache: true
 import time
 from tqdm.auto import tqdm
+from rich import print as rprint
 
 sample_size = 10
 
@@ -313,7 +239,7 @@ When using the OpenAI client we can specify this Pydantic model as the `response
 buffered = BytesIO()
 image.save(buffered, format="JPEG")
 image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
-completion = hf_client.beta.chat.completions.parse(
+completion = client.beta.chat.completions.parse(
     model="Qwen/Qwen3-VL-8B-Instruct",
     messages=[
          {
@@ -404,7 +330,7 @@ class BritishLibraryReprographicCard(BaseModel):
 We'll now create a function to handle the querying process using this structured schema.
 
 ```{python}
-def query_image_structured(image, prompt, schema, model='qwen3-vl-2b-instruct-mlx'):
+def query_image_structured(image, prompt, schema, model='Qwen/Qwen3-VL-8B-Instruct'):
     """
     Query VLM with an image and get structured output based on a Pydantic schema.
     
@@ -475,3 +401,30 @@ index_image
 ```
 
 
+## Appendix: Using a Local Model {#appendix-using-a-local-model}
+
+All the code in this chapter uses the OpenAI-compatible API, which means you can swap in a local model server with a single change to the client setup. Everything else — schemas, prompts, `.parse()` calls — works identically.
+
+```{python}
+#| eval: false
+
+# Replace the HF Inference client with a local server
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:1234/v1",  # LM Studio default port
+    api_key="lm-studio"                   # Default API key
+)
+```
+
+**Popular local options:**
+
+| Tool | Best for | Notes |
+|------|----------|-------|
+| [LM Studio](https://lmstudio.ai/) | Getting started quickly | GUI-based, MLX acceleration on Mac, built-in model browser |
+| [Ollama](https://ollama.com/) | CLI workflows | Simple `ollama run` commands, runs on port 11434 |
+| [vLLM](https://docs.vllm.ai/) | Production & batch processing | GPU-optimized, highest throughput, best for large-scale extraction |
+
+::: {.callout-note}
+Smaller local models (2B-4B parameters) work well for simpler tasks like classification, but for accurate structured extraction you'll generally want 8B+ parameter models. The trade-off is between running costs/speed (local, smaller models) and extraction quality (API or larger models).
+:::
