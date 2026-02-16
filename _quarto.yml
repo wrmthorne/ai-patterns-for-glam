@@ -31,7 +31,7 @@ book:
       chapters:
         - patterns/structured-generation/intro.qmd
         - patterns/structured-generation/vlm-structured-generation.qmd
-        - patterns/structured-generation/advisor-index-cards.ipynb
+    #    - patterns/structured-generation/advisor-index-cards.ipynb
     # - part: "Technology Evaluations"
     #   chapters:
     #     - ocr-evaluation.qmd
