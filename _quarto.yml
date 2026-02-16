@@ -47,8 +47,8 @@ format:
     theme: cosmo
     toc: true
     search: true
-  pdf:
-    documentclass: scrreprt
+  # pdf:
+  #   documentclass: scrreprt
 
 glossary:
   path: glossary.yml
