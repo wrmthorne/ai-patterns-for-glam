@@ -30,4 +30,4 @@ Each pattern includes:
 - Guidance on **evaluation** — how to know if it's working
 - **Trade-offs** and things to watch out for
 
-The examples throughout draw on work with the National Library of Scotland, but the approaches are designed to be adapted to other collections and contexts.
+The examples throughout draw on work with the [National Library of Scotland](https://www.nls.uk/), but the approaches are designed to be adapted to other collections and contexts.

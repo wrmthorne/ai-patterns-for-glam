@@ -9,9 +9,9 @@ This is a work in progress. Content will be added and updated over time. This is
 
 This book documents practical AI design patterns for information professionals — librarians, archivists, journalists, charity analysts, records managers, and anyone working with large collections of documents or data without a dedicated machine learning team.
 
-If you work with large collections of text, images, or records and want to use AI to extract, organize, or enrich that information — but don't have an ML engineering team — this book is for you. The examples come from {{< glossary GLAM >}} (Galleries, Libraries, Archives, and Museums) and specifically from work with the National Library of Scotland, but the patterns apply to any information-rich organisation working with collections at scale.
+If you work with large collections of text, images, or records and want to use AI to extract, organize, or enrich that information — but don't have an ML engineering team — this book is for you. The examples come from {{< glossary GLAM >}} (Galleries, Libraries, Archives, and Museums) and specifically from work with the [National Library of Scotland](https://www.nls.uk/), but the patterns apply to any information-rich organisation working with collections at scale.
 
 
 ### About the Author
 
-Daniel van Strien is a Machine Learning Librarian at Hugging Face, where he focuses on datasets and building bridges between machine learning and the cultural heritage sector. Before moving into ML, he worked as a librarian and digital curator at the British Library and other institutions. This combination of library practice and machine learning informs the approach taken in this book: practical, sustainable, and grounded in the realities of working with collections at scale.
+Daniel van Strien is a Machine Learning Librarian at [Hugging Face](https://huggingface.co/), where he focuses on datasets and building bridges between machine learning and the cultural heritage sector. Before moving into ML, he worked as a librarian and digital curator at the [British Library](https://www.bl.uk/) and other institutions. This combination of library practice and machine learning informs the approach taken in this book: practical, sustainable, and grounded in the realities of working with collections at scale.

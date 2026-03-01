@@ -10,7 +10,7 @@ We'll use the [Inspect AI](https://inspect.aisi.org.uk/) framework to structure 
 
 ## The Dataset
 
-We'll use the [DOAB Metadata Extraction](https://huggingface.co/datasets/biglam/doab-metadata-extraction) dataset from Hugging Face. This contains page images and ground truth metadata for 9,363 open access academic books from the Directory of Open Access Books.
+We'll use the [DOAB Metadata Extraction](https://huggingface.co/datasets/biglam/doab-metadata-extraction) dataset from Hugging Face. This contains page images and ground truth metadata for 9,363 open access academic books from the [Directory of Open Access Books](https://www.doabooks.org/).
 
 Each record includes scanned page images (title pages, copyright pages) along with known metadata: title, subtitle, publisher, publication year, and ISBN. This gives us a clear ground truth to evaluate against.
 
@@ -419,7 +419,7 @@ Full metadata extraction is harder — the model needs to find and correctly ext
 
 The evaluation structure we've walked through is general enough to adapt to any extraction task:
 
-1. **Assemble a ground truth dataset** — even 50 manually verified examples gives you useful signal. Publish it on Hugging Face so others can reproduce your results.
+1. **Assemble a ground truth dataset** — even 50 manually verified examples gives you useful signal. [Publish it on Hugging Face](https://huggingface.co/docs/datasets/upload_dataset) so others can reproduce your results.
 
 2. **Define your extraction task** as an Inspect AI `Task` — a dataset, a solver (usually just `generate()`), and a scorer.
 

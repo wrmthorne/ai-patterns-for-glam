@@ -1,7 +1,7 @@
 # Appendix A: AI Opportunity Assessment Form
 
 ::: {.callout-note}
-This is the complete assessment form used at the National Library of Scotland to gather detailed requirements for AI opportunities. It can be adapted for use at other institutions.
+This is the complete assessment form used at the [National Library of Scotland](https://www.nls.uk/) to gather detailed requirements for AI opportunities. It can be adapted for use at other institutions.
 :::
 
 ## AI Opportunity Assessment

@@ -4,7 +4,7 @@ The previous chapter argued that the most impactful AI applications are often th
 
 This chapter offers five lenses for thinking about where AI might fit into your work: **Transform**, **Extract**, **Describe**, **Organise**, and **Find**. These aren't exhaustive or rigid — they're starting points for conversation. Many useful AI applications in information-rich organisations fall roughly into one of these categories, and thinking in these terms helps move past the default "let's build a chat interface" response.
 
-The categories are loosely inspired by the task-based approach used in machine learning, where models are organised by what they *do* — classify, summarise, translate — rather than by their architecture. But the language here is deliberately non-technical. The goal is to help you look at your existing workflows and spot where AI might save time, reduce backlogs, or make collections more discoverable.
+The categories are loosely inspired by the [task-based approach used in machine learning](https://huggingface.co/tasks), where models are organised by what they *do* — classify, summarise, translate — rather than by their architecture. But the language here is deliberately non-technical. The goal is to help you look at your existing workflows and spot where AI might save time, reduce backlogs, or make collections more discoverable.
 
 ## Transform
 

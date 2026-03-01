@@ -2,9 +2,9 @@
 
 ## How Generative AI Hype Limits Library Imagination
 
-Many libraries had already been exploring AI and machine learning long before ChatGPT — using text classification to organise collections, OCR to make digitised materials searchable, and named entity recognition to enrich metadata. This work was often quiet, practical, and effective.
+Many libraries had already been exploring AI and machine learning long before ChatGPT — using [text classification](https://huggingface.co/tasks/text-classification) to organise collections, OCR to make digitised materials searchable, and [named entity recognition](https://huggingface.co/tasks/token-classification) to enrich metadata. This work was often quiet, practical, and effective.
 
-Then ChatGPT launched in late 2022 and made AI suddenly visible to everyone. For some institutions, this brought top-down pressure: directors and boards asking "how can we use this?" or "what's our AI strategy?" The natural response was understandable: "How can we chat with our collections?" Conferences filled with chatbot demos, funding proposals centred on conversational interfaces, and many institutions began treating chat as the default starting point for any AI project.
+Then [ChatGPT](https://openai.com/chatgpt) launched in late 2022 and made AI suddenly visible to everyone. For some institutions, this brought top-down pressure: directors and boards asking "how can we use this?" or "what's our AI strategy?" The natural response was understandable: "How can we chat with our collections?" Conferences filled with chatbot demos, funding proposals centred on conversational interfaces, and many institutions began treating chat as the default starting point for any AI project.
 
 But this fixation on chat interfaces risks overshadowing the practical AI work that was already happening — and overlooks a vast landscape of applications that are often more impactful, more achievable, and better suited to the problems libraries actually face every day.
 
@@ -49,7 +49,7 @@ None of these tasks are exciting. All of them transform how a library operates. 
 
 The models that do this boring work aren't the ones making headlines. They're small, specialised, and often free to use.
 
-**OCR models** have improved dramatically in recent years. Modern vision-language models can read historical typefaces, handle handwriting from different eras, preserve complex page layouts, and extract text from tables and marginalia — tasks that older OCR engines like Tesseract struggled with. Many of these models are small enough to run on a single GPU, or even as a cloud job costing fractions of a penny per page.
+**OCR models** have improved dramatically in recent years. Modern vision-language models can read historical typefaces, handle handwriting from different eras, preserve complex page layouts, and extract text from tables and marginalia — tasks that older OCR engines like [Tesseract](https://github.com/tesseract-ocr/tesseract) struggled with. Many of these models are small enough to run on a single GPU, or even as a cloud job costing fractions of a penny per page.
 
 **Classification models** can learn a library's own taxonomies and institutional preferences. A model fine-tuned on your cataloguing decisions can apply those same decisions to thousands of items on modest hardware. These don't need to be large — a model small enough to run in a web browser can still classify documents with high accuracy.
 
@@ -57,7 +57,7 @@ The models that do this boring work aren't the ones making headlines. They're sm
 
 What these models share is that they do one thing well, they do it cheaply, and their outputs are predictable enough to validate and trust.
 
-It's also worth noting that the line between "task-specific model" and "general-purpose model" is blurring. *Small* language models and vision-language models — in the 1-8 billion parameter range — can now handle many of these tasks well, especially with the right prompting or light fine-tuning. For the National Library of Scotland's index card extraction work, we ended up using a small vision-language model rather than building separate OCR and extraction pipelines. The key distinction isn't really about model architecture — it's about using the right-sized tool for the job, rather than defaulting to the largest model available.
+It's also worth noting that the line between "task-specific model" and "general-purpose model" is blurring. *Small* language models and vision-language models — in the 1-8 billion parameter range — can now handle many of these tasks well, especially with the right prompting or light fine-tuning. For the [National Library of Scotland's](https://www.nls.uk/) index card extraction work, we ended up using a small vision-language model rather than building separate OCR and extraction pipelines. The key distinction isn't really about model architecture — it's about using the right-sized tool for the job, rather than defaulting to the largest model available.
 
 ## Sustainable AI for Libraries
 
