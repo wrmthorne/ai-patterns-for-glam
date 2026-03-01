@@ -1,0 +1,13 @@
+# Evaluating AI Outputs
+
+In the previous chapters we looked at how to use AI models to extract structured information from collection items. The results looked promising — but how do we know if they're actually *good enough* to use in practice?
+
+This is the question every institution faces when considering AI for their workflows. "Good enough" depends entirely on your context: are you creating definitive catalogue records, or building a rough search index? Are you processing 100 items or 100,000? Is a human going to review every output, or are you trusting the AI to work unsupervised?
+
+Evaluation gives you the evidence to make these decisions. Rather than relying on gut feelings from looking at a handful of examples, a systematic evaluation tells you:
+
+- **What percentage of outputs are correct** — so you can estimate how much manual correction you'll need
+- **Where the model fails** — so you can decide if those failure modes matter for your use case
+- **How different models compare** — so you can make informed choices about cost vs quality
+
+The chapters in this section walk through concrete evaluations using real tasks and real data. The tools and techniques differ, but the underlying principle is the same: define what "correct" means for your use case, measure it systematically, and use the results to make informed decisions.

@@ -7,21 +7,24 @@ execute:
   freeze: true
 
 jupyter:
+  python:
+    path: .venv/bin/python
   kernelspec:
     name: ai-patterns-venv
     language: python
     display_name: "AI Patterns venv"
 
 book:
-  title: "AI Design Patterns for GLAM"
+  title: "AI Design Patterns for Information Professionals"
   author: "Daniel van Strien"
   date: today
   chapters:
     - index.qmd
-    # - intro.qmd # TODO
-    - part: "Beyond Chat Interfaces to Collections?"
-      # chapters:
-      #   - discovery/boring-ai.qmd
+    - intro.qmd
+    - part: "Beyond Chat Interfaces"
+      chapters:
+        - discovery/boring-ai.qmd
+        - discovery/beyond-chatbots.qmd
 
     - part: "Design Patterns"
       chapters:
@@ -32,13 +35,17 @@ book:
         - patterns/structured-generation/intro.qmd
         - patterns/structured-generation/vlm-structured-generation.qmd
     #    - patterns/structured-generation/advisor-index-cards.ipynb
-    # - part: "Technology Evaluations"
-    #   chapters:
-    #     - ocr-evaluation.qmd
-    # - references.qmd
-    # - part: "Appendices"
-    #   chapters:
-    #     - appendix/assessment-form.qmd
+    - part: "Evaluating AI Outputs"
+      chapters:
+        - evaluating-intro.qmd
+        - evaluating-ai-outputs.qmd
+    - part: "Infrastructure"
+      chapters:
+        - infrastructure/hardware-considerations.qmd
+    - part: "Appendices"
+      chapters:
+        - appendix/assessment-form.qmd
+    - glossary-page.qmd
 
 bibliography: references.bib
 
@@ -52,5 +59,5 @@ format:
 
 glossary:
   path: glossary.yml
-  popup: hover
+  popup: click
   show: true

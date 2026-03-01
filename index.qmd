@@ -7,20 +7,11 @@ This is a work in progress. Content will be added and updated over time. This is
 :::
 
 
-This book presents practical AI design patterns for Galleries, Libraries, Archives, and Museums (GLAM). Rather than focusing on specific technologies that will inevitably change, we document **patterns** which aim to capture reusable solutions to common challenges faced when implementing AI in GLAM contexts.
+This book documents practical AI design patterns for information professionals — librarians, archivists, journalists, charity analysts, records managers, and anyone working with large collections of documents or data without a dedicated machine learning team.
 
-
-### Goal of this book
-
-There are many exciting possibilities for applying AI in GLAM contexts, but also significant challenges. This book aims to provide a practical guide to help practitioners navigate this rapidly evolving landscape. 
-
-Whilst there is a lot of hype around the adoption of AI in the GLAM sector there isn't always clear guidance on how to approach projects in a structured way. This book aims to help fill that gap by providing a set of patterns that can be adapted and applied to a wide range of use cases.
-
-## Background to this work
-
-This documentation emerged from work with the National Library of Scotland, but the patterns and approaches apply broadly across the GLAM sector.
+If you work with large collections of text, images, or records and want to use AI to extract, organize, or enrich that information — but don't have an ML engineering team — this book is for you. The examples come from {{< glossary GLAM >}} (Galleries, Libraries, Archives, and Museums) and specifically from work with the National Library of Scotland, but the patterns apply to any information-rich organisation working with collections at scale.
 
 
 ### About the Author
 
-Daniel van Strien 
+Daniel van Strien is a Machine Learning Librarian at Hugging Face, where he focuses on datasets and building bridges between machine learning and the cultural heritage sector. Before moving into ML, he worked as a librarian and digital curator at the British Library and other institutions. This combination of library practice and machine learning informs the approach taken in this book: practical, sustainable, and grounded in the realities of working with collections at scale.

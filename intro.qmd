@@ -1,3 +1,33 @@
 # Introduction
 
-<!TODO: Write an introduction to the book here.>
+Most discussions about AI focus on chatbots, generative AI, and autonomous agents. But for information professionals — librarians, archivists, journalists, records managers — the most impactful uses of AI are often far more mundane: extracting structured data from scanned documents, classifying items in a backlog, or pulling metadata from thousands of PDFs.
+
+These tasks aren't always glamorous, but they represent real bottlenecks that organisations face every day. A library sitting on 250,000 unindexed manuscript cards. A charity with decades of case files that need categorising. A newsroom with thousands of leaked documents to sift through. In each case, the work is fairly well-defined, repetitive, and currently expensive and tedious to do manually at scale.
+
+## Why patterns?
+
+AI tools and models change rapidly. A model that is state-of-the-art today may be superseded within months. But the *problems* information professionals face — and the broad strategies for solving them — are far more stable.
+
+This book documents **design patterns**: reusable approaches to common challenges. Rather than providing step-by-step tutorials tied to a specific tool or API, we focus on the underlying shape of each problem and solution. The specific models and libraries used in our examples will evolve, but the patterns should remain useful.
+
+## What this book covers
+
+The book is organised around the key stages of an AI project in an information-rich organisation:
+
+- **Discovery**: How to identify where AI can genuinely help, and how to avoid common pitfalls when scoping projects.
+- **Design patterns**: Reusable approaches to common tasks, starting with structured information extraction — turning unstructured documents into structured, searchable data.
+- **Evaluation**: How to measure whether AI outputs are good enough for your use case, and how to make that judgement rigorously.
+- **Infrastructure**: Practical guidance on hardware, hosting, and cost — including when to run models locally versus using cloud APIs.
+
+## How to use this book
+
+You don't need to read this book front-to-back. If you're already running a pilot project, skip straight to the pattern that matches your use case. If you're still trying to figure out where AI fits in your organisation, start with the discovery chapters.
+
+Each pattern includes:
+
+- The **problem** it addresses
+- A **worked example** with real data
+- Guidance on **evaluation** — how to know if it's working
+- **Trade-offs** and things to watch out for
+
+The examples throughout draw on work with the National Library of Scotland, but the approaches are designed to be adapted to other collections and contexts.

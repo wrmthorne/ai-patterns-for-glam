@@ -1,6 +1,6 @@
 # What is an AI Pattern?
 
-A pattern is a reusable solution to a commonly occurring problem. The concept comes from architecture—Christopher Alexander's work on design patterns—and was later adopted by software engineering. In this book, we apply the same idea to AI implementations in GLAM contexts.
+A pattern is a reusable solution to a commonly occurring problem. The concept comes from architecture — Christopher Alexander's work on design patterns — and was later adopted by software engineering. In this book, we apply the same idea to AI implementations for information professionals: librarians, archivists, journalists, and anyone working with large collections of documents or data.
 
 ## Why Patterns?
 
@@ -25,7 +25,7 @@ What recurring problem does this pattern address? What makes it difficult or imp
 The high-level approach. What makes this work? What are the key components?
 
 **Implementation**
-Technical walkthrough with working code. We use real examples from GLAM collections, not toy datasets.
+Technical walkthrough with working code. We use real examples from real collections, not toy datasets.
 
 **Considerations**
 When should you use this pattern? What are the tradeoffs? What might go wrong?
@@ -34,6 +34,7 @@ When should you use this pattern? What are the tradeoffs? What might go wrong?
 
 This book currently covers:
 
-- **Structured Information Extraction** — Using Vision Language Models to extract structured metadata from document images (index cards, forms, registers)
+- **Structured Information Extraction** — Using vision language models to extract structured metadata from document images (index cards, forms, registers)
+- **Evaluating AI Outputs** — Systematic approaches to measuring whether AI results are good enough for your use case, using both rules-based and LLM-as-judge scoring
 
 Additional patterns will be added as the book develops.

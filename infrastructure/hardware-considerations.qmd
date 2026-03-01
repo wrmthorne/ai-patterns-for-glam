@@ -1,0 +1,373 @@
+# Infrastructure Considerations for AI in GLAM
+
+## Introduction
+
+One of the first questions institutions face when planning AI initiatives is: "What infrastructure do we need?" This chapter provides a framework for thinking through infrastructure decisions, focusing on principles that remain relevant as specific technologies evolve.
+
+Rather than recommending specific products or configurations, this chapter helps you understand the key constraints, trade-offs, and institutional factors that should inform your infrastructure choices.
+
+## Understanding Infrastructure Requirements
+
+### Memory and Model Loading
+
+AI models typically need to be loaded entirely into memory to run efficiently. A model requiring 40GB of memory won't run on hardware with only 32GB available.
+
+**However**: Advanced techniques exist for working around memory constraints - offloading to CPU RAM, offloading to disk, model sharding across multiple GPUs. These work but add complexity, reduce speed, and can be brittle. For most GLAM use cases, it's simpler to match hardware capacity to your model requirements rather than rely on these workarounds.
+
+**Rule of thumb for GLAM use cases**:
+- Document metadata extraction: 8-32GB
+- Image analysis: 12-64GB
+- Video processing: 64-128GB+
+
+> **TODO**: Add more specific guidance on model size estimation and memory requirements for common GLAM tasks
+
+### Usage Patterns Shape Infrastructure Needs
+
+The type of AI work you're doing fundamentally affects infrastructure requirements:
+
+**Live/Interactive (API-style)**:
+- Chatbots, staff tools, live demonstrations
+- Need instant response (1-3 seconds)
+- Model stays loaded and ready
+- Examples: "Chat with catalog", docent assistant tools, live metadata suggestions
+
+**Batch Processing (One-Time)**:
+- Digitizing a historical collection
+- One-off format conversion
+- Time matters but schedule is flexible
+- Examples: Processing 50,000 index cards, extracting metadata from entire photograph collection
+
+**Batch Processing (Regular)**:
+- Ongoing workflows with predictable volume
+- Capacity planning important
+- Examples: 300 born-digital items/week, daily newspaper OCR corrections
+
+> **TODO**: Expand with performance expectations and infrastructure implications for each pattern
+
+## The Cloud Services Spectrum
+
+Cloud infrastructure for AI is not simply "rent a GPU" - there are multiple service models with different cost structures and use cases.
+
+### Pay-Per-Token Services
+
+**How it works**: API access to models, charged per token processed (like OpenAI but for open models)
+
+**Examples**: Together AI, Fireworks AI, OpenRouter
+
+**Best for**: Variable usage, API-style interactions, testing different models
+
+**Cost structure**: Per million tokens processed
+
+**Trade-offs**: Convenience versus cost at scale; limited to available models
+
+> **TODO**: Add cost comparison examples for typical GLAM workloads
+
+### Dedicated Inference Endpoints
+
+**How it works**: A model deployment running continuously, you pay for uptime regardless of how much you use it
+
+**Examples**: Hugging Face Inference Endpoints, Replicate deployments
+
+**Best for**: Regular API usage where you need guaranteed availability
+
+**Cost structure**: Per hour running (fixed cost whether processing 10 items or 10,000)
+
+**Trade-offs**: More expensive if usage is sporadic; more economical than pay-per-token at high volumes
+
+### Bare Metal GPU Rental
+
+**How it works**: Rent GPU-equipped VMs, you manage the software stack entirely
+
+**Examples**: RunPod, Lambda Labs, Vast.ai
+
+**Best for**: Batch processing, development work, full control over environment
+
+**Cost structure**: Per GPU-hour, you configure everything
+
+**Trade-offs**: Requires technical expertise; most flexible; pay only when actively using
+
+### Job-Based Services
+
+**How it works**: Submit a job with your code/data, service runs it and returns results
+
+**Examples**: Hugging Face Jobs, Modal, Replicate training jobs
+
+**Best for**: One-time batch processing, sporadic workloads, CI/CD integration
+
+**Cost structure**: Per job or compute time used
+
+**Trade-offs**: Excellent for sporadic needs; may have startup overhead; less suited for interactive work
+
+> **TODO**: Create comparison table of cost structures and when each makes sense
+
+## Local Hardware Considerations
+
+Local infrastructure provides fixed capacity at one-time cost. Key considerations:
+
+**Memory architecture**:
+- Unified memory (DGX Spark, AMD Strix Halo): Simpler, handles larger models, lower bandwidth
+- Discrete GPUs (RTX 5090, etc.): Higher performance for smaller models, hard VRAM limits
+
+**Performance characteristics**:
+- Memory bandwidth often more important than raw compute for LLM inference
+- Batch processing can hide some performance differences
+- Interactive use cases demand faster hardware
+
+**Maintenance and support**:
+- Appliance-style systems (DGX Spark) versus component-based builds
+- Vendor support versus internal IT management
+- Upgrade paths and longevity
+
+> **TODO**: Expand with guidance on evaluating local hardware options
+
+## Custom Models vs Off-the-Shelf
+
+Infrastructure requirements differ depending on whether you're using pre-existing models or training/fine-tuning your own.
+
+**Off-the-shelf models**:
+- Use pre-trained models as-is
+- Infrastructure only needs inference capability
+- Can use any service model listed above
+- Lower barrier to entry
+
+**Custom fine-tuned models**:
+- Require training infrastructure (often more demanding than inference)
+- Need hosting for your specific model weights
+- Bare metal, dedicated endpoints, or local hardware required
+- More control over model behavior for specific use cases
+
+**Implications for GLAM**:
+- Many GLAM tasks work well with off-the-shelf models (especially vision models)
+- Domain-specific fine-tuning can improve accuracy for specialized collections
+- Hosting custom models favors local hardware or dedicated endpoints over pay-per-token services
+
+> **TODO**: Add examples of when fine-tuning justifies additional infrastructure complexity
+
+## Institutional Context Factors
+
+Beyond technical requirements, several organizational factors should inform infrastructure decisions:
+
+### Existing Cloud Infrastructure and Expertise
+
+**Does your institution already use cloud services?**
+
+If you're already using AWS/Azure/GCP for other services:
+- Leverage existing accounts, expertise, and compliance work
+- Institutional knowledge of cloud cost management
+- Established procurement and security approval processes
+- May have reserved capacity or enterprise agreements
+
+If minimal current cloud usage:
+- Cloud adoption friction may favor local hardware initially
+- Need to establish accounts, security reviews, procurement processes
+- Staff unfamiliar with cloud platforms may need training
+- Consider whether AI is the right first cloud use case
+
+**Staff technical capacity**:
+- Are staff comfortable with cloud platforms and APIs?
+- Do you have DevOps expertise for managing cloud infrastructure?
+- Is there capacity to learn new platforms if needed?
+
+### Data Privacy and Copyright Considerations
+
+**Data privacy**:
+- What happens to your data when processed by external services?
+- Do service terms of service allow data to be used for model training?
+- Are there compliance requirements (GDPR, institutional policies)?
+- Does data leave your premises/country when using cloud services?
+
+**Copyright considerations**:
+- Can you process copyrighted materials through third-party APIs?
+- What are the copyright implications of model outputs?
+- Do institutional or donor agreements restrict where materials can be processed?
+- Are there licensing considerations for training data used by service providers?
+
+**Service-specific policies**:
+- Major providers (OpenAI, Anthropic) typically have clear data usage policies
+- Smaller services may have less clear terms or may change policies
+- Self-hosted/local infrastructure gives complete control
+- Some services offer enterprise tiers with stronger data protection guarantees
+
+> **TODO**: Add checklist for evaluating service provider data policies
+
+### Budget and Procurement
+
+- Capital versus operational budget availability and approval processes
+- Multi-year cost planning (fixed vs variable spending)
+- Procurement timeline constraints
+- How cloud vs hardware purchases fit institutional approval workflows
+
+### Data Governance
+
+**Beyond privacy, governance includes**:
+- On-premises requirements for sensitive materials
+- Institutional policies on external processing
+- Cultural heritage ethical considerations
+- Donor restrictions or access limitations
+
+### Technical Capacity
+
+- Internal expertise for hardware maintenance
+- Comfort with Linux administration and GPU infrastructure
+- Desired level of vendor support
+- Capacity to troubleshoot infrastructure issues
+
+### Organizational Culture
+
+- Encouraging experimentation without usage cost concerns
+- Physical hardware as demonstration of institutional commitment
+- Building internal AI capacity versus using external services
+- Risk tolerance for newer technologies
+
+## Matching Infrastructure to Use Case
+
+::: {.panel-tabset}
+
+### For Leadership
+
+**Quick reference for common scenarios**:
+
+| Use Case | Frequency | Scale | Suggested Approach |
+|----------|-----------|-------|-------------------|
+| Interactive staff tool | Ongoing | N/A | Dedicated endpoint or local |
+| Index card processing | One-time | 100k+ items | Bare metal or local |
+| Weekly metadata enrichment | Regular | 100s-1000s | Local or job-based |
+| Experimenting with approaches | Variable | Variable | Pay-per-token |
+
+**Key question**: Is AI work occasional projects or ongoing institutional capability across multiple collections?
+
+- Occasional → Cloud services (various models)
+- Ongoing → Local hardware or dedicated endpoints
+
+### For Project Coordinators
+
+**Decision factors**:
+
+1. **Response time requirements**: Interactive tools need fast hardware/endpoints
+2. **Volume and frequency**: Regular high-volume work favors fixed-cost infrastructure
+3. **Data privacy and copyright**: Sensitive materials may require on-premises processing
+4. **Existing infrastructure**: Leverage current cloud platforms if available
+5. **Budget structure**: Capital vs operational expense approval paths
+
+**Hybrid approaches often work well**: Local hardware for routine work, cloud for burst capacity and testing new approaches.
+
+### For Technical Staff
+
+**Infrastructure decision tree**:
+
+```
+Is this interactive/API-style?
+├─ Yes → Needs fast response
+│  ├─ High volume/regular use → Dedicated endpoint or local
+│  └─ Low volume/testing → Pay-per-token
+│
+└─ No → Batch processing
+   ├─ One-time large job → Bare metal rental or job service
+   ├─ Regular moderate volume → Local hardware
+   └─ Sporadic/unpredictable → Job-based service
+
+Consider data constraints:
+├─ Copyright/privacy restrictions? → May require local/enterprise services
+├─ Already using AWS/Azure/GCP? → Leverage existing infrastructure
+└─ Starting fresh? → Evaluate friction of cloud adoption vs local hardware
+```
+
+> **TODO**: Expand with cost modeling examples
+
+:::
+
+## Common GLAM Scenarios
+
+### Scenario: Manuscript Index Cards
+
+**Context**: 250,000 index cards needing metadata extraction, one-time digitization project
+
+**Considerations**:
+- One-time batch processing
+- Large scale suggests dedicated infrastructure
+- Vision model requirements (12-32GB typically)
+- May contain personal information or unpublished research notes (privacy consideration)
+
+**Options**:
+- Bare metal GPU rental for duration of project (~£200-500 total)
+- Local hardware if multiple similar collections anticipated (~£2,000-5,000 one-time)
+- Job-based service if comfortable with that workflow and data privacy acceptable
+
+### Scenario: Born-Digital Metadata Enhancement
+
+**Context**: 300 PDFs per week requiring metadata extraction, ongoing workflow
+
+**Considerations**:
+- Regular, predictable volume
+- Batch processing (not time-critical)
+- Ongoing indefinitely
+- May include copyrighted materials (licensing consideration)
+
+**Options**:
+- Local hardware (~£2,000-5,000 one-time, unlimited processing, no copyright concerns)
+- Job-based service (~£100-200/year depending on processing needs)
+- Dedicated endpoint if API integration preferred
+
+### Scenario: Interactive Collection Assistant
+
+**Context**: Chat interface for staff to query collections, needs instant responses
+
+**Considerations**:
+- Interactive use requiring fast response
+- Ongoing availability needed
+- Moderate query volume expected
+- Staff may query about sensitive/restricted materials
+
+**Options**:
+- Dedicated inference endpoint (~£100-200/month) if data privacy acceptable
+- Local hardware if multiple tools/use cases planned or privacy required
+- Pay-per-token if query volume very low and data privacy policies allow
+
+> **TODO**: Add more scenarios covering different collection types and institutional contexts
+
+## Key Takeaways
+
+1. **Match infrastructure to usage pattern** - Interactive tools have different needs than batch processing
+
+2. **Cloud services have multiple models** - Pay-per-token, dedicated endpoints, bare metal, and job-based services serve different use cases
+
+3. **Leverage existing infrastructure when possible** - Already using AWS/Azure/GCP? Start there rather than learning new platforms
+
+4. **Data privacy and copyright matter** - Understand service provider policies and institutional requirements before sending materials externally
+
+5. **Consider the pipeline, not just projects** - Multiple automation challenges over time favor fixed-capacity infrastructure
+
+6. **Institutional factors matter as much as technical specs** - Budget structures, data governance, existing expertise, and culture affect optimal choice
+
+7. **Hybrid approaches work well** - Local hardware for routine/sensitive work, cloud for experimentation and burst capacity
+
+## Questions to Guide Your Decision
+
+1. Are AI applications interactive (needing instant response) or batch processing (can run overnight)?
+
+2. Is this occasional work or ongoing capacity across multiple collections?
+
+3. **Do you currently use AWS, Azure, GCP, or other cloud platforms? What is staff expertise with these?**
+
+4. **What are your data privacy requirements? Can materials be processed by third-party services?**
+
+5. **Are there copyright considerations for the materials you'll process?**
+
+6. Do you have data governance requirements constraining cloud usage?
+
+7. What are your budget structures - capital versus operational expense?
+
+8. Will you use off-the-shelf models or need to host custom fine-tuned models?
+
+9. What is your internal technical capacity for infrastructure management?
+
+10. Could you start with cloud services to validate patterns before hardware investment?
+
+## Further Resources
+
+- NLS hardware decision case study (detailed in consulting materials)
+- Cost modeling templates for comparing cloud versus local infrastructure
+- Technical specifications guide for common GLAM use cases
+- Data privacy and copyright considerations checklist for service evaluation
+
+> **TODO**: Create actual checklist document for evaluating service provider policies

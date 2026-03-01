@@ -1,0 +1,98 @@
+# Beyond Chatbots: Five Lenses for AI Applications
+
+The previous chapter argued that the most impactful AI applications are often the least exciting ones. But if the answer isn't a chatbot, what *is* it?
+
+This chapter offers five lenses for thinking about where AI might fit into your work: **Transform**, **Extract**, **Describe**, **Organise**, and **Find**. These aren't exhaustive or rigid — they're starting points for conversation. Many useful AI applications in information-rich organisations fall roughly into one of these categories, and thinking in these terms helps move past the default "let's build a chat interface" response.
+
+The categories are loosely inspired by the task-based approach used in machine learning, where models are organised by what they *do* — classify, summarise, translate — rather than by their architecture. But the language here is deliberately non-technical. The goal is to help you look at your existing workflows and spot where AI might save time, reduce backlogs, or make collections more discoverable.
+
+## Transform
+
+**Converting content from one form to another.**
+
+Transform tasks take something you already have and convert it into something more useful. OCR turns a scanned page into searchable text. Transcription turns an audio recording into a written transcript. Translation makes material in one language accessible in another.
+
+What makes transform tasks good candidates for AI is that they have clear inputs and outputs. You start with an image and end with text. You start with audio and end with a transcript. This makes them straightforward to evaluate — you can compare the output against what a human would produce and measure how close it gets.
+
+Transform tasks also tend to unlock everything else. A scanned page with no OCR is invisible to search, to metadata extraction, to classification. Getting that first transformation done — turning images into text, or unstructured records into structured data — often has an outsized impact because it enables every downstream application.
+
+Examples:
+
+- Scanned pages → searchable text via OCR
+- Audio/video recordings → written transcripts
+- Catalogue records → translated into another language
+- Historical typefaces or handwriting → machine-readable text
+
+## Extract
+
+**Pulling structured information out of unstructured content.**
+
+Once material is in a readable form, the next question is often: what's actually *in* it? Extract tasks identify and pull out specific pieces of information — names, dates, places, subject headings, shelf marks — from documents that contain them but don't make them easily searchable.
+
+A handwritten index card might contain an author name, a manuscript reference number, and a list of folio numbers. A born-digital PDF might have a title, publisher, and publication date buried in its first few pages. A charity case file might contain addresses, dates of contact, and outcome codes scattered across paragraphs of free text. In each case, the information is there — a human could find it — but extracting it systematically across thousands of items is where AI helps.
+
+Extract tasks pair well with structured output formats. Rather than asking a model to summarise a document in its own words, you define a schema — the fields you want — and ask the model to fill them in. This makes outputs consistent and easy to validate.
+
+Examples:
+
+- Manuscript index cards → structured metadata (name, reference number, folios)
+- Government publications → bibliographic records (title, author, publisher, date)
+- Historical letters → named entities (people, places, dates)
+- Legal documents → key clauses, dates, and parties involved
+
+## Describe
+
+**Generating new descriptions or summaries of existing content.**
+
+Where Extract pulls out information that's already stated in a document, Describe creates something new — a caption, a summary, an abstract. The information isn't written down anywhere; it requires interpretation.
+
+A photograph of a street scene doesn't contain a text description of itself. A 200-page report doesn't come with a two-sentence summary. A collection of maps doesn't have alt-text for screen readers. These are all cases where a model generates content that didn't previously exist, based on what it can see or read.
+
+This distinction matters because evaluation works differently. With Extract, you can check outputs against facts in the source document. With Describe, judgement is more subjective — is this caption accurate? Is this summary fair? Does it capture what matters? Human review plays a larger role here.
+
+Examples:
+
+- Photograph collections → descriptive captions for discovery
+- Long reports → short abstracts for cataloguing
+- Visual collections → alt-text for accessibility
+- Archival boxes → collection-level summaries from item-level records
+
+## Organise
+
+**Classifying, categorising, and sorting content.**
+
+Organise tasks assign labels to items: what type of document is this? What language is it in? Does it contain sensitive personal information? Is this scan legible? These are decisions that a person could make in seconds for a single item, but that become impossible to do manually across a backlog of tens of thousands.
+
+Classification tasks are often the easiest AI applications to justify. The inputs are clear (a document, an image, a record), the outputs are constrained (one of a fixed set of categories), and imperfect results are still useful. A language detector that's 95% accurate still saves hours of manual triage every week. A sensitivity screener that catches 85% of flagged content still dramatically reduces what human reviewers need to examine.
+
+This is where the "80% rule" matters most. Perfect accuracy is rarely necessary — what matters is whether the AI's output is good enough to be useful. An imperfect classifier applied to your entire backlog is more valuable than a perfect process that only covers 5% of it because there isn't time to do the rest.
+
+Examples:
+
+- Uncatalogued items → language identification for routing to specialists
+- Mixed collections → document type classification (letters, reports, photographs, maps)
+- Digitised material → sensitivity screening before publication
+- Scanned pages → quality assessment (legible, cropped correctly, properly oriented)
+
+## Find
+
+**Discovering connections, similarities, and improving search.**
+
+Find tasks help people discover material they wouldn't otherwise encounter. Traditional keyword search only works when you know the right terms — and when those terms appear in the metadata. AI-powered search can go beyond exact matches to find items that are semantically related, visually similar, or connected across collections that were never designed to talk to each other.
+
+Find tasks tend to be the most user-facing of the five lenses. Transform, Extract, Describe, and Organise all improve what happens behind the scenes — they enrich the data. Find changes what the end user experiences when they search, browse, or explore a collection.
+
+That said, Find is often the hardest place to *start*. Better search depends on having good metadata, readable text, and consistent classifications — exactly the things the other four lenses produce. An organisation that jumps straight to building a semantic search tool before addressing OCR gaps or metadata inconsistencies is likely to be disappointed with the results.
+
+Examples:
+
+- Searching a photograph collection by describing what you're looking for, rather than relying on catalogue terms
+- Finding duplicate or near-duplicate records across merged collections
+- Suggesting related items from different departments or collections
+- Clustering a large unprocessed donation to get a sense of what's in it before cataloguing
+
+## Starting points, not boundaries
+
+These five lenses aren't a checklist to work through in order, though in practice Transform and Extract often come first — you need readable, structured content before you can organise or search it effectively.
+
+The real value of thinking in these terms is specificity. "We want to use AI" is too vague to act on. "We want to classify 50,000 uncatalogued photographs by document type" is a project you can scope, staff, evaluate, and deliver. The lenses help you get from the first statement to the second.
