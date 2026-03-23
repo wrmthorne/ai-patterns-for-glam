@@ -35,6 +35,14 @@ book:
         - patterns/structured-generation/intro.qmd
         - patterns/structured-generation/vlm-structured-generation.qmd
     #    - patterns/structured-generation/advisor-index-cards.ipynb
+
+    - part: "More Patterns"
+      chapters:
+        - patterns/vlm-ocr.qmd
+        - patterns/semantic-search.qmd
+        - patterns/distillation.qmd
+        - patterns/agentic-workflows.qmd
+
     - part: "Evaluating AI Outputs"
       chapters:
         - evaluating-intro.qmd

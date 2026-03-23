@@ -1,0 +1,30 @@
+# Agentic Data and Model Development
+
+::: {.callout-note}
+This chapter is planned for a future edition.
+:::
+
+AI coding assistants and agentic workflows are changing how data and model development is done. Rather than writing every script from scratch, practitioners can use AI assistants to iterate on pipelines, adapt existing code to new collections, and build evaluation frameworks — with a human guiding the process and reviewing results.
+
+This could become a dominant approach to building AI tools for GLAM collections. The approach also democratises access to techniques that previously required substantial machine learning expertise — training a custom object detector, building a text classification model, creating evaluation pipelines. There are risks (over-reliance on generated code, difficulty debugging unfamiliar patterns, and the need for critical evaluation of outputs), but as a starting point for domain experts who understand their collections, it is a powerful enabler.
+
+## Case study: training an object detector in one afternoon
+
+The NLS index card extraction pipeline needed a way to detect index cards in scanned archival pages (filtering out covers, blank pages, and dividers before sending images to a Vision Language Model). No labelled training data existed.
+
+Using Claude Code and Hugging Face Jobs, the full workflow was:
+
+1. **Zero-shot bootstrap**: Ran SAM3 (a general-purpose segmentation model) via a UV script on HF Jobs to generate initial bounding box predictions on ~100 archival images. Result: only 31% true positive rate.
+2. **AI-built tooling**: Asked Claude Code to build an HTML bounding box editor for correcting the predictions. It created a working annotation tool in a single session.
+3. **Human correction**: Used the editor to correct annotations — removing false positives, adjusting coordinates. This is where the domain expertise matters.
+4. **Train and iterate**: Fine-tuned a YOLO model on the corrected data. Then ran the model on new images, corrected those outputs, and retrained.
+
+| Version | Training images | mAP@50-95 | What happened |
+|---------|----------------|-----------|---------------|
+| v1 | 100 | 94.4% | SAM3 bootstrap, manual correction, train |
+| v2 | 297 | 95.5% | Run v1 on new images, correct, retrain |
+| v3 | 905 | 99.2% | Run v2 on more images, correct, retrain |
+
+Three rounds over one afternoon to reach 99.2% mAP. The trained model is published at [NationalLibraryOfScotland/archival-index-card-detector](https://huggingface.co/NationalLibraryOfScotland/archival-index-card-detector).
+
+The pattern — **AI bootstraps, AI builds tooling, human corrects, model improves, repeat** — applies far beyond object detection. The same approach works for building training data for text classifiers, named entity recognisers, or any task where a domain expert can recognise correct outputs but couldn't easily write the code to produce them.

@@ -1,0 +1,7 @@
+# VLM-Based OCR
+
+::: {.callout-note}
+This chapter is planned for a future edition.
+:::
+
+Vision Language Models can be used for OCR tasks that go beyond what traditional OCR engines handle well — handwritten text, degraded documents, multilingual content, and documents where layout understanding is essential for correct reading order. This chapter will cover practical approaches to using VLMs for OCR in GLAM collections.

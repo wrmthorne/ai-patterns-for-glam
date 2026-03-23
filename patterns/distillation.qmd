@@ -1,0 +1,7 @@
+# Distilling Models for Text Classification
+
+::: {.callout-note}
+This chapter is planned for a future edition.
+:::
+
+Large language models are powerful but expensive to run at scale. Distillation is the process of using a large model to generate training data for a smaller, faster model that can be deployed cheaply. This chapter will cover how to use this approach for text classification tasks common in GLAM work — subject classification, language detection, format identification, and similar tasks where a small specialised model can replace repeated LLM calls.

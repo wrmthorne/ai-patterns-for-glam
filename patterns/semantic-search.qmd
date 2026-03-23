@@ -1,0 +1,7 @@
+# Semantic Search
+
+::: {.callout-note}
+This chapter is planned for a future edition.
+:::
+
+Semantic search uses embedding models to find documents by meaning rather than exact keyword matches. This chapter will cover how GLAM institutions can use semantic search to improve discovery across their collections — from finding related items across different cataloguing conventions to enabling natural language queries over metadata and full text.
