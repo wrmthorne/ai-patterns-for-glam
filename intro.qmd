@@ -8,7 +8,9 @@ These tasks aren't always glamorous, but they represent real bottlenecks that or
 
 AI tools and models change rapidly. A model that is state-of-the-art today may be superseded within months. But the *problems* information professionals face — and the broad strategies for solving them — are far more stable.
 
-This book documents **design patterns**: reusable approaches to common challenges. Rather than providing step-by-step tutorials tied to a specific tool or API, we focus on the underlying shape of each problem and solution. The specific models and libraries used in our examples will evolve, but the patterns should remain useful.
+The idea of design patterns comes from architecture — Christopher Alexander's *A Pattern Language* (1977) identified recurring solutions to common problems in building design. The concept was later adopted in software engineering, where it proved equally powerful: patterns give practitioners a shared vocabulary for discussing solutions without getting lost in implementation details.
+
+This book applies the same idea to AI in information work. We document **design patterns**: reusable approaches to common challenges. Rather than providing step-by-step tutorials tied to a specific tool or API, we focus on the underlying shape of each problem and solution. The specific models and libraries used in our examples will evolve, but the patterns should remain useful.
 
 ## What this book covers
 
