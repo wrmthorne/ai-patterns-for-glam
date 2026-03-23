@@ -2,96 +2,141 @@
 
 ## Overview
 
-Vision Language Models (VLMs) offer a fundamentally different approach to OCR compared to traditional methods. This chapter evaluates when and how VLMs might complement or replace existing OCR workflows in GLAM institutions.
+Vision Language Models (VLMs) offer a fundamentally different approach to OCR compared to traditional methods. Rather than detecting individual characters and assembling them into words, VLMs "read" a document image holistically — much as a human would — and produce structured text output.
 
-## Key Questions This Chapter Addresses
+For GLAM institutions sitting on large digitised collections with ageing OCR, this raises a practical question: **is it worth re-processing, and how do you decide?**
 
-- When is it worth re-OCRing existing collections with VLMs?
-- How do VLMs compare to traditional OCR in accuracy, cost, and outputs?
-- What new capabilities do VLMs enable beyond text extraction?
-- How can VLM-extracted text better support downstream AI tasks?
+This chapter won't recommend a specific model — the landscape moves too fast for that. Instead, it gives you a framework for evaluating VLM-based OCR on *your* collections, and shares lessons learned from running these evaluations at scale.
 
-## Evaluation Framework
+## The Core Insight: There Is No Best OCR Model
 
-### Performance Metrics
-- **Accuracy**: Character and word error rates across different document types
-- **Cost**: Per-page processing costs vs traditional OCR
-- **Speed**: Processing time for different collection sizes
-- **Output Quality**: Readability and structure preservation
+The single most important finding from our benchmarking work is that **document type determines which model you should use**. A small, lightweight model can outperform one four times its size on one collection, and the rankings flip completely on another.
 
-### Output Format Comparison
+This is counterintuitive if you're used to thinking about OCR as a solved problem with one "best" tool. In practice:
 
-::: {.panel-tabset}
+- Models trained heavily on modern documents often struggle with historical printed text.
+- Models that excel on clean printed pages may fail on handwritten card catalogues.
+- The highest-scoring model on a general benchmark may rank last on your specific materials.
 
-### Traditional OCR (ALTO XML)
-- Preserves exact page coordinates
-- Industry standard for digital libraries
-- Complex structure, harder to process
-- Limited semantic understanding
+::: {.callout-important}
+## Don't Trust General Benchmarks Alone
+Published benchmark scores tell you how a model performs on *that benchmark's* documents. Your collections are different. Always evaluate on a representative sample of your own materials before committing to a model.
+:::
 
-### VLM Output (Markdown)
-- Human-readable format
-- Preserves document structure semantically
-- Easier integration with LLMs
-- Better for full-text search and RAG
+## What VLMs Change
 
-### Hybrid Approaches
-- Use VLMs for complex layouts
-- Traditional OCR for simple text
-- Combine coordinate and semantic data
+### Output Format
 
+Traditional OCR pipelines (Tesseract, ABBYY) typically produce ALTO XML or hOCR — formats that preserve exact character coordinates on the page. This is useful for highlighting search results on a page image, but the output is complex to work with and carries no semantic understanding of the document.
+
+VLM-based OCR typically outputs **Markdown** — a human-readable format that preserves document structure (headings, lists, tables) semantically rather than spatially. This is a meaningful trade-off:
+
+| | Traditional OCR (ALTO/hOCR) | VLM OCR (Markdown) |
+|---|---|---|
+| **Coordinates** | Per-character bounding boxes | None (unless explicitly requested) |
+| **Structure** | Physical layout | Semantic structure |
+| **Downstream use** | Page-image overlay, display | LLM integration, RAG, search |
+| **Complexity** | High (XML parsing) | Low (plain text) |
+
+Neither format is strictly better — it depends on what you need the text for. If your primary use case is full-text search, RAG, or feeding text into other AI systems, Markdown output is significantly easier to work with.
+
+### New Capabilities
+
+Beyond plain text extraction, VLMs can:
+
+- **Handle mixed content** — handwriting alongside print, stamps, annotations
+- **Understand layout semantically** — distinguish headers from body text, identify tables, recognise captions
+- **Extract structured data directly** — with the right prompting, a VLM can output JSON rather than plain text (see the [Structured Information Extraction](patterns/structured-generation/vlm-structured-generation.qmd) chapter)
+- **Work across languages** without switching engines
+
+### New Failure Modes
+
+VLMs also introduce failure modes that traditional OCR doesn't have:
+
+- **Hallucination**: When faced with degraded or illegible text, a VLM may *invent* plausible-sounding content rather than producing garbled characters. This is arguably more dangerous than traditional OCR errors, which are obviously wrong.
+- **Illustration confusion**: Pages with images, maps, or diagrams can cause VLMs to describe what they see rather than transcribe text, or to hallucinate text that isn't there.
+- **Repetition loops**: Certain layouts (particularly maps with repeated labels) can trigger the model to produce the same phrase hundreds of times.
+
+::: {.callout-warning}
+## Hallucination Is the Key Risk
+Traditional OCR fails visibly — garbled characters are obviously wrong. VLM hallucinations can look perfectly plausible. Any VLM-based OCR pipeline needs quality checks that account for this.
+:::
+
+## Evaluating OCR for Your Collections
+
+### The Pairwise Comparison Approach
+
+Rather than trying to measure absolute accuracy (which requires expensive ground-truth transcriptions), a practical approach is **pairwise comparison**: show a judge two OCR outputs for the same page and ask which is better.
+
+The judge can be:
+
+- **A human reviewer** — gold standard but slow and expensive
+- **A large language model** — fast and cheap, with surprisingly good agreement with human judgements when the model can see the original document image
+- **A combination** — use LLM judgement at scale, validate with a small sample of human comparisons
+
+This produces a **relative ranking** of models on your specific documents, which is exactly what you need for a procurement or migration decision.
+
+### What to Include in Your Evaluation Sample
+
+Choose a sample that represents the diversity of your collection:
+
+- **Clean, well-printed pages** — the easy case; most models handle this well
+- **Degraded or foxed pages** — tests robustness to noise
+- **Complex layouts** — multi-column text, tables, marginalia
+- **Handwritten content** — if present in your collections
+- **Non-text pages** — illustrations, maps, blank pages — tests whether the model gracefully handles pages with little or no text
+- **Mixed-language pages** — if applicable
+
+50–150 pages is typically enough to produce a reliable ranking. The key is diversity, not volume.
+
+### Cheap Signals for Quality
+
+Before running expensive evaluations, there are simple heuristics that can flag problematic OCR output at scale with zero model inference:
+
+- **Text length**: Abnormally short or long output for a given page size
+- **Alphabetic character ratio**: Low ratio suggests garbled output
+- **Repetition detection**: Repeated phrases or character sequences
+- **Character entropy**: Very low entropy suggests repetitive output; very high suggests noise
+
+These signals won't tell you *which* model is best, but they can quickly identify pages where any model has failed — useful for quality assurance on large batch runs.
+
+## Cost and Scale
+
+VLM-based OCR has become remarkably affordable. As a rough guide, processing hundreds of thousands of pages on rented GPU infrastructure now costs tens of dollars rather than thousands — a fraction of what the original digitisation cost.
+
+The key cost factors are:
+
+- **Model size**: Smaller models (under 2B parameters) can run on cheaper GPUs and process pages faster
+- **GPU type**: Consumer-grade GPUs work for small models; larger models need more VRAM
+- **Batch size**: Processing pages in batches rather than one-at-a-time dramatically improves throughput
+- **Error rate**: A model that processes 99% of pages correctly but fails on 1% may cost more in manual review than a slightly slower model with fewer failures
+
+::: {.callout-tip}
+## Start Small, Scale Gradually
+Run your evaluation on 50–150 pages first. Once you've identified the best model for your documents, do a larger pilot (a few thousand pages) before committing to a full collection run. This catches edge cases that small samples miss.
 :::
 
 ## When to Consider Re-OCRing
 
-::: {.callout-tip}
-## Decision Framework
-Consider VLM-based re-OCRing when:
-- Existing OCR is >10 years old
-- You need better handling of complex layouts
-- Downstream AI applications require clean text
-- Cost per page is acceptable for your budget
-:::
+Re-processing an existing collection with VLM-based OCR makes sense when:
 
-## Enabling Downstream AI Tasks
+1. **Your existing OCR is poor quality** — particularly common with collections digitised more than 10 years ago, or with complex/historical materials
+2. **You need the text for AI applications** — RAG, semantic search, or training data all benefit from cleaner, better-structured text
+3. **The cost is justified** — for large collections, even cheap per-page costs add up; weigh against the value of improved text
+4. **You have a quality assurance plan** — VLM hallucination means you need some way to validate output, even if it's just the cheap heuristic signals described above
 
-### RAG (Retrieval-Augmented Generation)
-- Cleaner text improves retrieval accuracy
-- Markdown format works better with embeddings
-- Structural understanding enhances context
+Re-processing does *not* mean discarding your existing OCR. Keep ALTO/hOCR for coordinate-based applications and add VLM output as an additional text layer.
 
-### Fine-tuning and Training
-- Higher quality training data from historical texts
-- Better preservation of document semantics
-- Reduced preprocessing requirements
+## Tools
 
-### Semantic Search
-- Improved indexing with better text quality
-- Enhanced metadata extraction
-- Cross-collection discovery
+The [`ocr-bench`](https://github.com/davanstrien/ocr-bench) tool implements the evaluation approach described in this chapter — pairwise VLM-as-judge comparisons with ELO rankings, human validation, and per-collection leaderboards. It is designed for GLAM collections and can be customised for different document types.
 
-## Case Studies
+## Practical Steps
 
-### National Library Examples
-- Newspaper collections with complex layouts
-- Handwritten materials mixed with print
-- Multi-language collections
-- Scientific texts with formulas and diagrams
-
-## Cost-Benefit Analysis
-
-[To be developed with specific pricing models and benchmarks]
-
-## Tools and Resources
-
-- Evaluation scripts for comparing OCR outputs
-- Sample datasets for benchmarking
-- Cost calculators for different scales
-- Integration guides for existing workflows
-
-## Next Steps
-
-1. Pilot evaluation on representative samples
-2. Benchmark against existing OCR
-3. Calculate ROI for full collection processing
-4. Develop integration strategy
+1. **Assemble a representative sample** — 50–150 pages covering the diversity of your collection
+2. **Run 3–4 candidate models** — choose models of different sizes and architectures
+3. **Compare outputs pairwise** — using LLM-as-judge with human validation on a subset
+4. **Check for failure modes** — specifically test on difficult pages (illustrations, degraded text, blank pages)
+5. **Cost a full run** — extrapolate from your pilot timing and GPU costs
+6. **Run a larger pilot** — a few thousand pages to catch edge cases
+7. **Implement quality signals** — automated checks on the full output before human review
