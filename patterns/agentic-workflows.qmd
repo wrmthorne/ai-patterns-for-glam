@@ -1,14 +1,29 @@
 # Agentic Data and Model Development
 
-::: {.callout-note}
-This chapter is planned for a future edition.
-:::
-
 AI coding assistants and agentic workflows are changing how data and model development is done. Rather than writing every script from scratch, practitioners can use AI assistants to iterate on pipelines, adapt existing code to new collections, and build evaluation frameworks — with a human guiding the process and reviewing results.
 
-This could become a dominant approach to building AI tools for GLAM collections. The approach also democratises access to techniques that previously required substantial machine learning expertise — training a custom object detector, building a text classification model, creating evaluation pipelines. There are risks (over-reliance on generated code, difficulty debugging unfamiliar patterns, and the need for critical evaluation of outputs), but as a starting point for domain experts who understand their collections, it is a powerful enabler.
+This could become a dominant approach to building AI tools for GLAM collections. The approach also democratises access to techniques that previously required substantial machine learning expertise — training a custom object detector, building a text classification model, creating evaluation pipelines. Historically, two barriers have prevented many GLAM institutions from adopting custom ML: the need for labelled training data and the need for specialist code to train and deploy models. Both barriers are falling. Foundation models can bootstrap initial labels from unlabelled collections, and AI coding assistants can generate the training pipelines. This doesn't eliminate the need for expertise — but it shifts what kind of expertise is required.
 
-## Case study: training an object detector in one afternoon
+There are risks (over-reliance on generated code, difficulty debugging unfamiliar patterns, and the need for critical evaluation of outputs), but as a starting point for domain experts who understand their collections, it is a powerful enabler.
+
+## When This Works
+
+Agentic workflows are most effective when:
+
+- **The bottleneck is technical, not conceptual.** You know what you want — classify these documents by type, extract metadata from these cards, detect illustrations in these pages — but building the pipeline from scratch is time-consuming and not everyone has the ML engineering background to do it efficiently.
+- **A domain expert can recognise correct outputs.** The human in the loop doesn't need to write the code, but they do need to judge whether the results are right. This is a natural fit for information professionals, whose daily work already involves quality assessment, cataloguing standards, and editorial judgement.
+- **The task benefits from iteration.** Most ML tasks improve dramatically with a few rounds of "run the model, review the mistakes, correct, retrain." Agentic tools make each round faster, so you can iterate more within a fixed time budget.
+
+The key shift is that the human role moves from "writing code" to "reviewing outputs and correcting mistakes" — much closer to existing professional skills like cataloguing, QA, and editorial review.
+
+## What You Need
+
+- **A clear task definition**: What does a correct output look like? What are the edge cases?
+- **A representative sample**: A few hundred examples from your collection that cover the variety you expect
+- **An AI coding assistant**: Tools like Claude Code, GitHub Copilot, or Cursor that can generate and modify code in conversation
+- **Compute for training**: Cloud GPUs or local hardware (see the [Infrastructure](../infrastructure/hardware-considerations.qmd) chapter)
+
+## Case Study: Training an Object Detector in One Afternoon
 
 The NLS index card extraction pipeline needed a way to detect index cards in scanned archival pages (filtering out covers, blank pages, and dividers before sending images to a Vision Language Model). No labelled training data existed.
 
@@ -27,4 +42,17 @@ Using Claude Code and Hugging Face Jobs, the full workflow was:
 
 Three rounds over one afternoon to reach 99.2% mAP. The trained model is published at [NationalLibraryOfScotland/archival-index-card-detector](https://huggingface.co/NationalLibraryOfScotland/archival-index-card-detector).
 
-The pattern — **AI bootstraps, AI builds tooling, human corrects, model improves, repeat** — applies far beyond object detection. The same approach works for building training data for text classifiers, named entity recognisers, or any task where a domain expert can recognise correct outputs but couldn't easily write the code to produce them.
+## The General Pattern
+
+The pattern — **AI bootstraps, AI builds tooling, human corrects, model improves, repeat** — applies far beyond object detection. The same loop works for:
+
+- **Text classification**: Bootstrap labels using a large language model, correct the mistakes, train a smaller specialised classifier
+- **Named entity extraction**: Use a general model to tag people, places, and dates in your documents, correct the outputs, fine-tune on your domain
+- **Evaluation pipelines**: Have the AI assistant build automated quality checks, then review the results to calibrate thresholds
+
+In each case, the domain expert's time is spent on what they're best at — judging quality and applying institutional knowledge — rather than on writing boilerplate code or configuring ML frameworks.
+
+::: {.callout-tip}
+## Start With the Simplest Version
+Don't try to automate everything at once. Pick one well-defined task, run one round of the bootstrap-correct-retrain loop, and see if the results are useful. You can always add complexity later.
+:::

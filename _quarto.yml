@@ -26,21 +26,20 @@ book:
         - discovery/boring-ai.qmd
         - discovery/beyond-chatbots.qmd
 
-    - part: "Design Patterns"
+    - part: "Extracting Information"
       chapters:
         - patterns/what-is-an-ai-pattern.qmd
-
-    - part: "Structured Information Extraction"
-      chapters:
         - patterns/structured-generation/intro.qmd
         - patterns/structured-generation/vlm-structured-generation.qmd
-    #    - patterns/structured-generation/advisor-index-cards.ipynb
-
-    - part: "More Patterns"
-      chapters:
         - patterns/vlm-ocr.qmd
-        - patterns/semantic-search.qmd
+
+    - part: "Organising Collections"
+      chapters:
         - patterns/distillation.qmd
+        - patterns/semantic-search.qmd
+
+    - part: "Building AI Pipelines"
+      chapters:
         - patterns/agentic-workflows.qmd
 
     - part: "Evaluating AI Outputs"
