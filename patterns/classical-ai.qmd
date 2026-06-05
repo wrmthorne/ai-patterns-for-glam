@@ -1,0 +1,13 @@
+# Classical AI
+
+Before generative models took over, most models fell into one of two broad categories and the model you choose will depend on the type of task being solved:
+
+- **Classification** -> Models that sort inputs into categories (e.g. cat vs dog vs bird, yes/no)
+- **Regression** -> Models that convert inputs into a value on a scale (e.g. a score, person's height)
+
+Ultimately, generative LLMs are just performing classification in a loop!
+
+In this section we will cover how to set up a simple classifier using [SciKit-Learn](https://scikit-learn.org) using the [National Gallery Style Classification](wrmthorne/National_Gallery_style_classification).
+
+## The Dataset
+
