@@ -64,9 +64,7 @@ bibliography: references.bib
 
 format:
   html:
-    theme:
-      light: cosmo
-      dark: darkly
+    theme: cosmo
     toc: true
     search: true
   # pdf:

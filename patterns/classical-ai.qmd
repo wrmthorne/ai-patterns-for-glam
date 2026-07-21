@@ -9,7 +9,7 @@ Ultimately, generative LLMs are just performing classification in a loop. At eac
 
 These "classical" methods have not gone away, and for many GLAM tasks they are still the right tool for a number of reasons:
 
-- **fast** - predictions in milliseconds on an ordinary laptop, no GPU required)
+- **fast** - predictions in milliseconds on an ordinary laptop, no GPU required
 - **cheap** - no per-call API costs, no expensive hardware requirements
 - **interpretable** - you can inspect exactly which words drove a decision
 - **easy to train** - models train quickly and reliably on even small amounts of data.
@@ -47,7 +47,7 @@ Each row is one painting. The fields we care about are the two text descriptions
 
 ```{python}
 row = ds["train"][0]
-print(f"STYLE: {row["labels_text"]}")
+print(f"STYLE: {row['labels_text']}")
 print()
 print(row["short_text"])
 ```
@@ -77,7 +77,7 @@ This is a **heavily imbalanced** dataset: *Baroque* and *High Renaissance* domin
 
 ## From Words to Numbers
 
-Models cannot read text directly — it first has to be converted into numbers. This is vectorization. One of the simplest and most effective vectorization methods is **TF-IDF** (*term Frequency-inverse document frequency*). The idea is simple:
+Models cannot read text directly — it first has to be converted into numbers. This is vectorization. One of the simplest and most effective vectorization methods is **TF-IDF** (*term frequency–inverse document frequency*). The idea is simple:
 
 - Count how often each word appears in a document (**term frequency**).
 - Count the number of documents a word appears in and take its inverse (1/DF = IDF) (**inverse document frequency**)
@@ -137,7 +137,7 @@ The vectoriser drops English stop words, ignores words appearing in only one doc
 
 ::: {.callout-note}
 ## Repeatability
-Machine-learning code is full of randomness so the same code can give different numbers on different runs. Passing a fixed `random_state` seeds that randomness, so results are repeatable run-to-run and for anyone else who runs the notebook. Without this, its hard to be sure whether an increase in score came from a change you made or just luck.
+Machine-learning code is full of randomness so the same code can give different numbers on different runs. Passing a fixed `random_state` seeds that randomness, so results are repeatable run-to-run and for anyone else who runs the notebook. Without this, it's hard to be sure whether an increase in score came from a change you made or just luck.
 :::
 
 A prediction on a painting it has never seen:
@@ -166,9 +166,9 @@ print(f"Model accuracy               : {accuracy_score(y_test, pred):.3f}")
 print(f"Model macro F1               : {f1_score(y_test, pred, average='macro', zero_division=0):.3f}")
 ```
 
-While we more than doubled the baseline score, the more important takeaway is the gap between **accuracy** and **macro F1**. The difference comes from accuracy rewarding correct classification of common styles where macro F1 averages *per style*, making it equally important to correctly classify common and rare styles. A high accuracy with a low macro F1 means the model leans on the majority classes and neglects the rare ones. This is is why an accuracy figure means little without a baseline to beat.
+While we more than doubled the baseline score, the more important takeaway is the gap between **accuracy** and **macro F1**. The difference comes from accuracy rewarding correct classification of common styles where macro F1 averages *per style*, making it equally important to correctly classify common and rare styles. A high accuracy with a low macro F1 means the model leans on the majority classes and neglects the rare ones. This is why an accuracy figure means little without a baseline to beat.
 
-Lets inspect the per-class breakdowns:
+Let's inspect the per-class breakdowns:
 
 ```{python}
 from sklearn.metrics import classification_report
